@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VIOP V2 Araştırma Paneli</title>
+  <style>
+    :root{--bg:#0b0f14;--panel:#121820;--line:#24303c;--text:#e9eef4;--muted:#8fa0b3;--green:#45d483;--red:#ff6b6b;--amber:#f4c05e;--blue:#67a7ff}
+    *{box-sizing:border-box}body{margin:0;background:#0b0f14;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.hidden{display:none!important}
+    .login{min-height:100vh;display:grid;place-items:center;padding:20px}.box,.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px}.box{width:min(430px,100%);padding:28px}.eyebrow{color:var(--blue);font-weight:800;letter-spacing:.14em}.muted{color:var(--muted)}
+    form{display:grid;gap:10px;margin-top:20px}input{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1319;color:white}button{padding:10px 14px;border:0;border-radius:10px;background:var(--blue);font-weight:800;cursor:pointer}.secondary{background:#1a2330;color:white;border:1px solid var(--line)}.err{color:var(--red)}
+    .wrap{max-width:1500px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.actions{display:flex;gap:10px;align-items:center}.pill{padding:10px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}
+    @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards{grid-template-columns:1fr}.wrap{padding:16px}}
+  </style>
+</head>
+<body>
+  <div id="loginScreen" class="login">
+    <div class="box">
+      <p class="eyebrow">VIOP AI BOT</p>
+      <h1>V2 Araştırma Paneli</h1>
+      <p class="muted">Supabase hesabınla giriş yap.</p>
+      <form id="loginForm">
+        <input id="email" type="email" placeholder="E-posta" required>
+        <input id="password" type="password" placeholder="Şifre" required>
+        <button type="submit">Giriş yap</button>
+      </form>
+      <p id="loginError" class="err"></p>
+    </div>
+  </div>
+
+  <div id="dashboard" class="wrap hidden">
+    <header>
+      <div><p class="eyebrow">VIOP AI BOT</p><h1>V2 Araştırma Paneli</h1><p class="muted">GitHub Actions → Supabase → HTML/CSS/JS · salt-okunur</p></div>
+      <div class="actions"><span id="healthText" class="pill">Bağlanıyor...</span><button id="logoutBtn" class="secondary">Çıkış</button></div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><span>Son VİOP fiyatı</span><strong id="price">-</strong><small id="marketTime">-</small></div>
+      <div class="card"><span>Sanal hesap</span><strong id="cash">-</strong><small id="realized">-</small></div>
+      <div class="card"><span>V2 adayları</span><strong id="candidates">-</strong><small id="resolved">-</small></div>
+      <div class="card"><span>Varsayımsal net K/Z</span><strong id="netPnl">-</strong><small>Otomatik sanal işlem: KAPALI</small></div>
+    </section>
+
+    <section class="grid">
+      <div class="panel wide">
+        <div class="head"><div><h2>V2 Aday Sinyalleri</h2><p class="muted">Son 100 araştırma kaydı</p></div><button id="refreshBtn">Yenile</button></div>
+        <div class="scroll"><table><thead><tr><th>Zaman</th><th>Yön</th><th>Hareket %</th><th>Onay</th><th>Giriş</th><th>Stop</th><th>Hedef</th><th>Risk</th><th>Limit</th><th>Sonuç</th><th>K/Z</th></tr></thead><tbody id="signalsBody"></tbody></table></div>
+      </div>
+      <div class="panel"><h2>Kümülatif K/Z</h2><canvas id="equityCanvas"></canvas></div>
+      <div class="panel"><h2>Sistem Durumu</h2><div class="status"><div><span>Gerçek emir</span><b class="off">KAPALI</b></div><div><span>Otomatik sanal işlem</span><b class="off">KAPALI</b></div><div><span>Açık sanal pozisyon</span><b id="openPosition">0</b></div><div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div></div></div>
+    </section>
+    <footer>Bu panel araştırma amaçlıdır. Gösterilen K/Z gerçek işlem performansı değildir.</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script>
+    const cfg=window.VIOP_CONFIG||{};
+    const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY);
+    const $=id=>document.getElementById(id);
+    const num=(v,d=2)=>v==null?'-':Number(v).toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});
+    const tl=v=>v==null?'-':num(v)+' TL';
+    const tr=v=>v?new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(v)):'-';
+    async function rpc(name){const {data,error}=await sb.rpc(name);if(error)throw error;return data}
+    async function overview(){const d=await rpc('viop_dashboard_overview');$('price').textContent=num(d.market?.price);$('marketTime').textContent='Toplama: '+tr(d.market?.collected_at);$('cash').textContent=tl(d.account?.cash_tl);$('realized').textContent='Gerçekleşen K/Z: '+tl(d.account?.realized_pnl_tl);$('candidates').textContent=d.stats?.candidate_count??0;$('resolved').textContent='Sonuçlanan: '+(d.stats?.resolved_count??0)+' · +'+(d.stats?.positive_count??0)+' / -'+(d.stats?.negative_count??0);$('netPnl').textContent=tl(d.stats?.illustrative_net_tl??0);$('openPosition').textContent=d.open_position_count??0}
+    async function signals(){const rows=await rpc('viop_dashboard_signals');$('signalsBody').innerHTML=(rows||[]).map(r=>{const p=Number(r.illustrative_net_tl??0),pc=p>0?'pos':p<0?'neg':'';const rc=Number(r.estimated_stop_loss_tl??0)>Number(r.risk_limit_tl??0)?'warn':'';return `<tr><td>${tr(r.signal_bar_start)}</td><td>${r.research_side??'-'}</td><td>${num(r.movement_pct,3)}</td><td>${r.internal_agreement_5??'-'}/5</td><td>${num(r.entry_reference)}</td><td>${num(r.stop)}</td><td>${num(r.target)}</td><td class="${rc}">${tl(r.estimated_stop_loss_tl)}</td><td>${tl(r.risk_limit_tl)}</td><td>${r.outcome_status??'-'}</td><td class="${pc}">${tl(r.illustrative_net_tl)}</td></tr>`}).join('')}
+    function draw(rows){const c=$('equityCanvas'),x=c.getContext('2d'),w=c.clientWidth||600,h=320,d=devicePixelRatio||1;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);if(!rows?.length){x.fillStyle='#8fa0b3';x.fillText('Henüz sonuçlanmış V2 adayı yok.',20,30);return}const vals=rows.map(r=>Number(r.cumulative)),mn=Math.min(0,...vals),mx0=Math.max(0,...vals),mx=mx0===mn?mn+1:mx0,p={l:55,r:15,t:15,b:25},X=i=>p.l+i/Math.max(1,rows.length-1)*(w-p.l-p.r),Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);x.strokeStyle='#67a7ff';x.lineWidth=2.5;x.beginPath();rows.forEach((r,i)=>i?x.lineTo(X(i),Y(Number(r.cumulative))):x.moveTo(X(i),Y(Number(r.cumulative))));x.stroke()}
+    async function equity(){draw(await rpc('viop_dashboard_equity'))}
+    async function refresh(){try{$('healthText').textContent='Veriler yükleniyor...';await Promise.all([overview(),signals(),equity()]);$('healthText').textContent='Supabase bağlı'}catch(e){console.error(e);$('healthText').textContent='Veri hatası'}}
+    function loggedIn(){$('loginScreen').classList.add('hidden');$('dashboard').classList.remove('hidden');refresh()}
+    function loggedOut(){$('dashboard').classList.add('hidden');$('loginScreen').classList.remove('hidden')}
+    $('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('loginError').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){$('loginError').textContent='Giriş başarısız: '+error.message;return}loggedIn()});
+    $('logoutBtn').onclick=async()=>{await sb.auth.signOut();loggedOut()};$('refreshBtn').onclick=refresh;window.addEventListener('resize',()=>equity().catch(()=>{}));
+    (async()=>{const {data}=await sb.auth.getSession();data.session?loggedIn():loggedOut()})();
+  </script>
+</body>
+</html>
