@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>VIOP Regresyon + R² Test Paneli</title>
+  <title>VIOP 1 Saatlik Regresyon + R² Test Paneli</title>
   <style>
     :root{--bg:#0b0f14;--panel:#121820;--line:#24303c;--text:#e9eef4;--muted:#8fa0b3;--green:#45d483;--red:#ff6b6b;--amber:#f4c05e;--blue:#67a7ff}
     *{box-sizing:border-box}body{margin:0;background:#0b0f14;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.hidden{display:none!important}
@@ -18,7 +18,7 @@
   <div id="loginScreen" class="login">
     <div class="box">
       <p class="eyebrow">VIOP AI BOT</p>
-      <h1>Regresyon + R² Test Paneli</h1>
+      <h1>1 Saatlik Regresyon + R² Test Paneli</h1>
       <p class="muted">Supabase hesabınla giriş yap.</p>
       <form id="loginForm">
         <input id="email" type="email" placeholder="E-posta" required>
@@ -31,7 +31,7 @@
 
   <div id="dashboard" class="wrap hidden">
     <header>
-      <div><p class="eyebrow">VIOP AI BOT</p><h1>Regresyon + R² Test Paneli</h1><p class="muted">GitHub Actions → Supabase → HTML/CSS/JS · salt-okunur</p></div>
+      <div><p class="eyebrow">VIOP AI BOT</p><h1>1 Saatlik Regresyon + R² Test Paneli</h1><p class="muted">GitHub Actions → Supabase → HTML/CSS/JS · salt-okunur</p></div>
       <div class="actions"><span id="healthText" class="pill">Bağlanıyor...</span><button id="logoutBtn" class="secondary">Çıkış</button></div>
     </header>
 
@@ -39,12 +39,12 @@
       <div class="card"><span>Son VİOP fiyatı</span><strong id="price">-</strong><small id="marketTime">-</small></div>
       <div class="card"><span>Paper işlem K/Z</span><strong id="cash">0,00 TL</strong><small id="realized">Paper işlem: KAPALI</small></div>
       <div class="card"><span>Regresyon test işlemleri</span><strong id="candidates">-</strong><small id="resolved">-</small></div>
-      <div class="card"><span>Test net K/Z</span><strong id="netPnl">-</strong><small>Regresyon + R² araştırma sonucu</small></div>
+      <div class="card"><span>Test net K/Z</span><strong id="netPnl">-</strong><small>1 saatlik mum · Regresyon + R² sonucu</small></div>
     </section>
 
     <section class="grid">
       <div class="panel wide">
-        <div class="head"><div><h2>Regresyon + R² Test İşlemleri</h2><p class="muted">Son 100 model kaydı · giriş ve çıkışlar açıkça gösterilir</p></div><button id="refreshBtn">Yenile</button></div>
+        <div class="head"><div><h2>1 Saatlik Regresyon + R² Test İşlemleri</h2><p class="muted">Son 100 model kaydı · giriş ve çıkışlar açıkça gösterilir</p></div><button id="refreshBtn">Yenile</button></div>
         <div class="scroll"><table><thead><tr><th>Sinyal zamanı</th><th>Durum</th><th>Yön</th><th>R²</th><th>Reg. hareket %</th><th>Giriş zamanı</th><th>Giriş</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Brüt K/Z</th><th>Masraf</th><th>Net K/Z</th></tr></thead><tbody id="signalsBody"></tbody></table></div>
       </div>
       <div class="panel"><h2>Kümülatif Test K/Z</h2><canvas id="equityCanvas"></canvas></div>
