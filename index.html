@@ -157,20 +157,20 @@
         const p=Number(r.net_pnl_tl??0),pc=p>0?'pos':p<0?'neg':'';
         const cancelled=r.outcome_status==='CANCELLED';
         const status=r.outcome_status==='RESOLVED'?'KAPALI':(cancelled?'İPTAL':r.outcome_status??'-');
-        return \`<tr>
-          <td>\${tr(r.signal_bar_start)}</td>
-          <td>\${r.contract_code??'-'}</td>
-          <td class="\${cancelled?'warn':''}">\${status}</td>
-          <td>\${r.side??'-'}</td>
-          <td>\${num(r.r2,4)}</td>
-          <td>\${num(r.regression_move_pct,3)}</td>
-          <td>\${tr(r.entry_time)}</td>
-          <td>\${num(r.entry_price)}</td>
-          <td>\${tr(r.exit_time)}</td>
-          <td>\${num(r.exit_price)}</td>
-          <td>\${r.outcome_reason??'-'}</td>
-          <td class="\${pc}">\${tl(r.net_pnl_tl)}</td>
-        </tr>\`;
+        return `<tr>
+          <td>${tr(r.signal_bar_start)}</td>
+          <td>${r.contract_code??'-'}</td>
+          <td class="${cancelled?'warn':''}">${status}</td>
+          <td>${r.side??'-'}</td>
+          <td>${num(r.r2,4)}</td>
+          <td>${num(r.regression_move_pct,3)}</td>
+          <td>${tr(r.entry_time)}</td>
+          <td>${num(r.entry_price)}</td>
+          <td>${tr(r.exit_time)}</td>
+          <td>${num(r.exit_price)}</td>
+          <td>${r.outcome_reason??'-'}</td>
+          <td class="${pc}">${tl(r.net_pnl_tl)}</td>
+        </tr>`;
       }).join('');
     }
 
