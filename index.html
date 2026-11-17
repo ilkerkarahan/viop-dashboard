@@ -10,8 +10,8 @@
     .login{min-height:100vh;display:grid;place-items:center;padding:20px}.box,.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px}.box{width:min(430px,100%);padding:28px}.eyebrow{color:var(--blue);font-weight:800;letter-spacing:.14em}.muted{color:var(--muted)}
     form{display:grid;gap:10px;margin-top:20px}input{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1319;color:white}button{padding:10px 14px;border:0;border-radius:10px;background:var(--blue);font-weight:800;cursor:pointer}.secondary{background:#1a2330;color:white;border:1px solid var(--line)}.err{color:var(--red)}
     .wrap{max-width:1500px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.actions{display:flex;gap:10px;align-items:center}.pill{padding:10px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}
-    @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards{grid-template-columns:1fr}.wrap{padding:16px}}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+    @media(max-width:900px){.cards,.btGrid{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}}
   </style>
 </head>
 <body>
@@ -35,6 +35,12 @@
       <div class="actions"><span id="healthText" class="pill">Bağlanıyor...</span><button id="logoutBtn" class="secondary">Çıkış</button></div>
     </header>
 
+    <nav class="tabs">
+      <button id="forwardTab" class="tabBtn active">Forward Test</button>
+      <button id="backtestTab" class="tabBtn">5 Yıllık Backtest</button>
+    </nav>
+
+    <div id="forwardPage">
     <section class="cards">
       <div class="card"><span>Son VİOP fiyatı</span><strong id="price">-</strong><small id="marketTime">-</small></div>
       <div class="card"><span>Paper işlem K/Z</span><strong id="cash">0,00 TL</strong><small id="realized">Paper işlem: KAPALI</small></div>
@@ -50,6 +56,52 @@
       <div class="panel"><h2>Kümülatif Test K/Z</h2><canvas id="equityCanvas"></canvas></div>
       <div class="panel"><h2>Sistem Durumu</h2><div class="status"><div><span>Gerçek emir</span><b class="off">KAPALI</b></div><div><span>Paper işlem</span><b class="off">KAPALI</b></div><div><span>Açık paper pozisyon</span><b id="openPosition">0</b></div><div><span>Son test işlemi</span><b id="latestTest">-</b></div><div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div></div></div>
     </section>
+    </div>
+
+    <div id="backtestPage" class="hidden">
+      <section class="btGrid">
+        <div class="card btMetric"><span>Gerçek veri kapsamı</span><strong id="btCoverage">-</strong><small id="btRequested">-</small></div>
+        <div class="card btMetric"><span>Yüklenen kontrat</span><strong id="btContracts">-</strong><small id="btCandles">-</small></div>
+        <div class="card btMetric"><span>Backtest işlemleri</span><strong id="btTrades">-</strong><small id="btResolved">-</small></div>
+        <div class="card btMetric"><span>Net K/Z</span><strong id="btNet">-</strong><small id="btWinRate">-</small></div>
+        <div class="card btMetric"><span>Profit factor</span><strong id="btProfitFactor">-</strong><small>1,00 üstü kârlı tarafı gösterir</small></div>
+        <div class="card btMetric"><span>Maks. drawdown</span><strong id="btDrawdown">-</strong><small>Gerçekleşen net K/Z eğrisi</small></div>
+        <div class="card btMetric"><span>Kaynak</span><strong id="btSource" style="font-size:18px">-</strong><small id="btCreated">-</small></div>
+        <div class="card btMetric"><span>Durum</span><strong id="btStatus" style="font-size:18px">-</strong><small id="btVersion">-</small></div>
+      </section>
+
+      <section class="grid">
+        <div class="panel wide">
+          <div class="head">
+            <div>
+              <h2>5 Yıllık Backtest İşlemleri</h2>
+              <p class="muted">Forward testten tamamen ayrı · aynı 1 saatlik Regresyon + R² kuralları</p>
+            </div>
+            <button id="btRefreshBtn">Yenile</button>
+          </div>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>R²</th><th>Reg. hareket %</th><th>Giriş zamanı</th><th>Giriş</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th></tr></thead>
+              <tbody id="btTradesBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel"><h2>Backtest Kümülatif K/Z</h2><canvas id="btEquityCanvas"></canvas></div>
+
+        <div class="panel">
+          <h2>Backtest Bilgisi</h2>
+          <p id="btNotes" class="btMeta">Backtest sonucu yükleniyor...</p>
+          <div class="status">
+            <div><span>Canlı sisteme yazma</span><b class="off">YOK</b></div>
+            <div><span>Forward test</span><b>AYRI</b></div>
+            <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
+            <div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <footer>Bu panel araştırma amaçlıdır. Gösterilen K/Z gerçek işlem performansı değildir.</footer>
   </div>
 
@@ -68,10 +120,100 @@
     function draw(rows){const c=$('equityCanvas'),x=c.getContext('2d'),w=c.clientWidth||600,h=320,d=devicePixelRatio||1;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);if(!rows?.length){x.fillStyle='#8fa0b3';x.fillText('Henüz kapanmış Regresyon + R² test işlemi yok.',20,30);return}const vals=rows.map(r=>Number(r.cumulative)),mn=Math.min(0,...vals),mx0=Math.max(0,...vals),mx=mx0===mn?mn+1:mx0,p={l:55,r:15,t:15,b:25},X=i=>p.l+i/Math.max(1,rows.length-1)*(w-p.l-p.r),Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);x.strokeStyle='#67a7ff';x.lineWidth=2.5;x.beginPath();rows.forEach((r,i)=>i?x.lineTo(X(i),Y(Number(r.cumulative))):x.moveTo(X(i),Y(Number(r.cumulative))));x.stroke()}
     async function equity(){draw(await rpc('viop_dashboard_equity'))}
     async function refresh(){try{$('healthText').textContent='Veriler yükleniyor...';await Promise.all([overview(),signals(),equity()]);$('healthText').textContent='Supabase bağlı'}catch(e){console.error(e);$('healthText').textContent='Veri hatası'}}
+    async function backtestOverview(){
+      const d=await rpc('viop_dashboard_backtest_overview');
+      if(!d){
+        $('btCoverage').textContent='Henüz veri yok';
+        $('btRequested').textContent='Backtest çalıştırılmadı';
+        $('btContracts').textContent='-';$('btCandles').textContent='-';
+        $('btTrades').textContent='-';$('btResolved').textContent='-';
+        $('btNet').textContent='-';$('btWinRate').textContent='-';
+        $('btProfitFactor').textContent='-';$('btDrawdown').textContent='-';
+        $('btSource').textContent='-';$('btCreated').textContent='-';
+        $('btStatus').textContent='BEKLİYOR';$('btVersion').textContent='-';
+        $('btNotes').textContent='Backtest henüz çalıştırılmadı.';
+        return;
+      }
+      $('btCoverage').textContent=d.data_start?tr(d.data_start)+' → '+tr(d.data_end):'-';
+      $('btRequested').textContent='İstenen: '+tr(d.requested_start)+' → '+tr(d.requested_end);
+      $('btContracts').textContent=(d.contracts_loaded??0)+' / '+(d.contracts_requested??0);
+      $('btCandles').textContent='1 saatlik mum: '+(d.candle_count??0);
+      $('btTrades').textContent=d.trade_count??0;
+      $('btResolved').textContent='Kapalı: '+(d.resolved_count??0)+' · +'+(d.positive_count??0)+' / -'+(d.negative_count??0);
+      $('btNet').textContent=tl(d.net_pnl_tl??0);
+      $('btWinRate').textContent='Kazanma: '+(d.win_rate_pct==null?'-':num(d.win_rate_pct,2)+'%');
+      $('btProfitFactor').textContent=d.profit_factor==null?'-':num(d.profit_factor,3);
+      $('btDrawdown').textContent=tl(d.max_drawdown_tl??0);
+      $('btSource').textContent=d.source??'-';
+      $('btCreated').textContent='Çalıştırma: '+tr(d.created_at);
+      $('btStatus').textContent=d.status??'-';
+      $('btVersion').textContent=d.strategy_version??'-';
+      $('btNotes').textContent=d.notes??'-';
+    }
+
+    async function backtestTrades(){
+      const rows=await rpc('viop_dashboard_backtest_trades');
+      $('btTradesBody').innerHTML=(rows||[]).map(r=>{
+        const p=Number(r.net_pnl_tl??0),pc=p>0?'pos':p<0?'neg':'';
+        const cancelled=r.outcome_status==='CANCELLED';
+        const status=r.outcome_status==='RESOLVED'?'KAPALI':(cancelled?'İPTAL':r.outcome_status??'-');
+        return \`<tr>
+          <td>\${tr(r.signal_bar_start)}</td>
+          <td>\${r.contract_code??'-'}</td>
+          <td class="\${cancelled?'warn':''}">\${status}</td>
+          <td>\${r.side??'-'}</td>
+          <td>\${num(r.r2,4)}</td>
+          <td>\${num(r.regression_move_pct,3)}</td>
+          <td>\${tr(r.entry_time)}</td>
+          <td>\${num(r.entry_price)}</td>
+          <td>\${tr(r.exit_time)}</td>
+          <td>\${num(r.exit_price)}</td>
+          <td>\${r.outcome_reason??'-'}</td>
+          <td class="\${pc}">\${tl(r.net_pnl_tl)}</td>
+        </tr>\`;
+      }).join('');
+    }
+
+    function drawBacktest(rows){
+      const c=$('btEquityCanvas'),x=c.getContext('2d'),w=c.clientWidth||600,h=320,d=devicePixelRatio||1;
+      c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);
+      if(!rows?.length){x.fillStyle='#8fa0b3';x.font='14px system-ui';x.fillText('Henüz backtest sonucu yok.',20,30);return}
+      const vals=rows.map(r=>Number(r.cumulative)),mn=Math.min(0,...vals),mx0=Math.max(0,...vals),mx=mx0===mn?mn+1:mx0,p={l:55,r:15,t:15,b:25},
+      X=i=>p.l+i/Math.max(1,rows.length-1)*(w-p.l-p.r),
+      Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);
+      x.strokeStyle='#67a7ff';x.lineWidth=2.5;x.beginPath();
+      rows.forEach((r,i)=>i?x.lineTo(X(i),Y(Number(r.cumulative))):x.moveTo(X(i),Y(Number(r.cumulative))));
+      x.stroke();
+    }
+
+    async function backtestEquity(){drawBacktest(await rpc('viop_dashboard_backtest_equity'))}
+    async function loadBacktest(){
+      try{
+        $('healthText').textContent='Backtest yükleniyor...';
+        await Promise.all([backtestOverview(),backtestTrades(),backtestEquity()]);
+        $('healthText').textContent='Supabase bağlı';
+      }catch(e){
+        console.error(e);
+        $('healthText').textContent='Backtest veri hatası';
+      }
+    }
+    function showPage(name){
+      const back=name==='backtest';
+      $('forwardPage').classList.toggle('hidden',back);
+      $('backtestPage').classList.toggle('hidden',!back);
+      $('forwardTab').classList.toggle('active',!back);
+      $('backtestTab').classList.toggle('active',back);
+      if(back)loadBacktest();else refresh();
+    }
     function loggedIn(){$('loginScreen').classList.add('hidden');$('dashboard').classList.remove('hidden');refresh()}
     function loggedOut(){$('dashboard').classList.add('hidden');$('loginScreen').classList.remove('hidden')}
     $('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('loginError').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){$('loginError').textContent='Giriş başarısız: '+error.message;return}loggedIn()});
-    $('logoutBtn').onclick=async()=>{await sb.auth.signOut();loggedOut()};$('refreshBtn').onclick=refresh;window.addEventListener('resize',()=>equity().catch(()=>{}));
+    $('logoutBtn').onclick=async()=>{await sb.auth.signOut();loggedOut()};
+    $('refreshBtn').onclick=refresh;
+    $('btRefreshBtn').onclick=loadBacktest;
+    $('forwardTab').onclick=()=>showPage('forward');
+    $('backtestTab').onclick=()=>showPage('backtest');
+    window.addEventListener('resize',()=>{if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
     (async()=>{const {data}=await sb.auth.getSession();data.session?loggedIn():loggedOut()})();
   </script>
 </body>
