@@ -64,6 +64,8 @@
         <div class="card btMetric"><span>Yüklenen kontrat</span><strong id="btContracts">-</strong><small id="btCandles">-</small></div>
         <div class="card btMetric"><span>Backtest işlemleri</span><strong id="btTrades">-</strong><small id="btResolved">-</small></div>
         <div class="card btMetric"><span>Final bakiye</span><strong id="btFinalEquity">-</strong><small id="btNet">-</small></div>
+        <div class="card btMetric"><span>Net nema</span><strong id="btNema">-</strong><small id="btNemaBreakdown">-</small></div>
+        <div class="card btMetric"><span>TPP oran kapsamı</span><strong id="btRateCoverage">-</strong><small id="btRateSource">-</small></div>
         <div class="card btMetric"><span>Profit factor</span><strong id="btProfitFactor">-</strong><small id="btWinRate">-</small></div>
         <div class="card btMetric"><span>Maks. drawdown</span><strong id="btDrawdown">-</strong><small>Gerçekleşen net bakiye eğrisi</small></div>
         <div class="card btMetric"><span>Aktif strateji</span><strong id="btStrategy" style="font-size:18px">-</strong><small id="btStrategyDetail">-</small></div>
@@ -75,13 +77,13 @@
           <div class="head">
             <div>
               <h2>5 Yıllık Backtest İşlemleri</h2>
-              <p class="muted">Forward testten tamamen ayrı · LONG-only · Donchian 35 kırılımı · ATR(14)×4 trailing çıkış · tarihsel teminat + stop×5 sermaye motoru</p>
+              <p class="muted">Forward testten tamamen ayrı · LONG-only · Donchian 35 kırılımı · ATR(14)×4 trailing çıkış · tarihsel teminat + stop×5 + serbest nakit TPP O/N neması</p>
             </div>
             <button id="btRefreshBtn">Yenile</button>
           </div>
           <div class="scroll">
             <table>
-              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Doğal stop riski</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>İndikatör stop riski</th><th>×5 stop rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
+              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Doğal stop riski</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>İndikatör stop riski</th><th>×5 stop rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Serbest nakit</th><th>Giriş öncesi nema</th><th>Pozisyon neması</th><th>Kümülatif nema</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
               <tbody id="btTradesBody"></tbody>
             </table>
           </div>
@@ -95,7 +97,7 @@
           <div class="status">
             <div><span>Aktif göstergeler</span><b>DONCHIAN + ATR</b></div>
             <div><span>İşlem yönü</span><b>LONG ONLY</b></div>
-            <div><span>Pozisyon yönetimi</span><b>TEMİNAT + STOP×5</b></div>
+            <div><span>Pozisyon yönetimi</span><b>TEMİNAT + STOP×5 + TPP NEMA</b></div><div><span>Nema</span><b>SERBEST NAKİT / TPP O/N</b></div>
             <div><span>Canlı sisteme yazma</span><b class="off">YOK</b></div>
             <div><span>Forward test</span><b>AYRI</b></div>
             <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
@@ -131,6 +133,7 @@
         $('btContracts').textContent='-';$('btCandles').textContent='-';
         $('btTrades').textContent='-';$('btResolved').textContent='-';
         $('btFinalEquity').textContent='-';$('btNet').textContent='-';
+        $('btNema').textContent='-';$('btNemaBreakdown').textContent='-';$('btRateCoverage').textContent='-';$('btRateSource').textContent='-';
         $('btWinRate').textContent='-';$('btProfitFactor').textContent='-';$('btDrawdown').textContent='-';
         $('btStrategy').textContent='-';$('btStrategyDetail').textContent='-';
         $('btSizing').textContent='-';$('btSizingDetail').textContent='-';
@@ -144,15 +147,19 @@
       $('btTrades').textContent=d.trade_count??0;
       $('btResolved').textContent='Kapalı: '+(d.resolved_count??0)+' · +'+(d.positive_count??0)+' / -'+(d.negative_count??0);
       $('btFinalEquity').textContent=tl(d.final_equity_tl??0);
-      $('btNet').textContent='Net K/Z: '+tl(d.net_pnl_tl??0)+' · Getiri: '+(d.total_return_pct==null?'-':num(d.total_return_pct,1)+'%')+' · CAGR: '+(d.cagr_pct==null?'-':num(d.cagr_pct,1)+'%');
+      $('btNet').textContent='İşlem K/Z: '+tl(d.net_pnl_tl??0)+' · Getiri: '+(d.total_return_pct==null?'-':num(d.total_return_pct,1)+'%')+' · CAGR: '+(d.cagr_pct==null?'-':num(d.cagr_pct,1)+'%');
+      $('btNema').textContent=tl(d.total_net_nema_tl??0);
+      $('btNemaBreakdown').textContent='Pozisyon yokken: '+tl(d.idle_nema_tl??0)+' · Pozisyon açıkken: '+tl(d.position_nema_tl??0);
+      $('btRateCoverage').textContent=(d.official_rate_days??0)+' gerçek / '+(d.interpolated_rate_days??0)+' interp.';
+      $('btRateSource').textContent=(d.nema_rate_source??'TPP O/N')+' · Takasbank nema ücreti %'+num((d.nema_fee_rate??0)*100,1);
       $('btProfitFactor').textContent=d.profit_factor==null?'-':num(d.profit_factor,3);
       $('btWinRate').textContent='Kazanma: '+(d.win_rate_pct==null?'-':num(d.win_rate_pct,2)+'%');
       $('btDrawdown').textContent=(d.max_drawdown_pct==null?'-':('%'+num(d.max_drawdown_pct,2)))+' · '+tl(d.max_drawdown_tl??0);
       $('btStrategy').textContent='Donchian '+(d.donchian_period??'-')+' + ATR('+(d.atr_period??'-')+')×'+num(d.atr_multiplier,1);
       $('btStrategyDetail').textContent=(d.strategy_side??'-')+' · '+(d.strategy_version??'-');
       $('btSizing').textContent='Stop ×'+num(d.stop_buffer_multiplier??5,0)+' · dinamik kontrat';
-      $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Tarihsel XU030 teminatı':'Teminat modeli: '+(d.margin_model??'-'))+' + ATR×4 stop zararı × '+num(d.stop_buffer_multiplier??5,0)+' + tahmini giriş/stop çıkış komisyonu ≤ kasa · Lot: '+(d.min_quantity??'-')+'–'+(d.max_quantity??'-')+' · Ort: '+num(d.avg_quantity,1);
-      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: resmi V32 risk motorunun en son tamamlanan backtesti.';
+      $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Tarihsel XU030 teminatı':'Teminat modeli: '+(d.margin_model??'-'))+' + ATR×4 stop zararı × '+num(d.stop_buffer_multiplier??5,0)+' + tahmini giriş/stop çıkış komisyonu ≤ kasa · Teminat dışı serbest nakit günlük TPP O/N ile nemalanır · Lot: '+(d.min_quantity??'-')+'–'+(d.max_quantity??'-')+' · Ort: '+num(d.avg_quantity,1);
+      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: resmi V33 TPP nema motorunun en son tamamlanan backtesti.';
     }
 
     async function backtestTrades(){
@@ -175,6 +182,10 @@
           <td>${tl(r.buffered_stop_reserve_tl)}</td>
           <td>${tl(r.estimated_fee_reserve_tl)}</td>
           <td>${tl(r.capital_need_total_tl)}</td>
+          <td>${tl(r.free_cash_at_entry_tl)}</td>
+          <td>${tl(r.idle_nema_before_entry_tl)}</td>
+          <td>${tl(r.position_nema_tl)}</td>
+          <td>${tl(r.cumulative_nema_tl)}</td>
           <td>${tl(r.notional_exposure_tl)}</td>
           <td>${tr(r.entry_time)}</td>
           <td>${num(r.entry_price)}</td>
