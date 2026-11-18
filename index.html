@@ -10,8 +10,8 @@
     .login{min-height:100vh;display:grid;place-items:center;padding:20px}.box,.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px}.box{width:min(430px,100%);padding:28px}.eyebrow{color:var(--blue);font-weight:800;letter-spacing:.14em}.muted{color:var(--muted)}
     form{display:grid;gap:10px;margin-top:20px}input{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1319;color:white}button{padding:10px 14px;border:0;border-radius:10px;background:var(--blue);font-weight:800;cursor:pointer}.secondary{background:#1a2330;color:white;border:1px solid var(--line)}.err{color:var(--red)}
     .wrap{max-width:1500px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.actions{display:flex;gap:10px;align-items:center}.pill{padding:10px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
-    @media(max-width:900px){.cards,.btGrid{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.periodPanel{margin-bottom:14px;padding:0;overflow:hidden}.periodPanel summary{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px;cursor:pointer;list-style:none}.periodPanel summary::-webkit-details-marker{display:none}.periodPanel summary strong{font-size:18px}.periodPanel summary small{display:block;color:var(--muted);margin-top:4px}.periodPanel[open] summary{border-bottom:1px solid var(--line)}.periodBody{padding:18px}.periodControls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.periodBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.periodBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.periodCards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.periodCards .card strong{font-size:23px}.periodTable{min-width:760px}
+    @media(max-width:900px){.cards,.btGrid,.periodCards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid,.periodCards{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}.periodPanel summary{align-items:flex-start}.periodControls{display:grid;grid-template-columns:repeat(2,1fr)}.periodBtn{width:100%}}
   </style>
 </head>
 <body>
@@ -71,6 +71,33 @@
         <div class="card btMetric"><span>Aktif strateji</span><strong id="btStrategy" style="font-size:18px">-</strong><small id="btStrategyDetail">-</small></div>
         <div class="card btMetric"><span>Pozisyon boyutlandırma</span><strong id="btSizing" style="font-size:18px">-</strong><small id="btSizingDetail">-</small></div>
       </section>
+
+      <details id="btPeriodDetails" class="panel periodPanel">
+        <summary>
+          <div><strong>Dönemsel Kasa Performansı</strong><small>Toplam kasa · işlem K/Z + TPP nema dahil</small></div>
+          <span class="muted">Aç / Kapat</span>
+        </summary>
+        <div class="periodBody">
+          <div class="periodControls">
+            <button class="periodBtn active" data-months="1">1 Aylık</button>
+            <button class="periodBtn" data-months="3">3 Aylık</button>
+            <button class="periodBtn" data-months="6">6 Aylık</button>
+            <button class="periodBtn" data-months="12">1 Yıllık</button>
+          </div>
+          <div class="periodCards">
+            <div class="card"><span>Son dönem K/Z</span><strong id="btPeriodLatest">-</strong><small id="btPeriodLatestMeta">-</small></div>
+            <div class="card"><span>En iyi dönem</span><strong id="btPeriodBest">-</strong><small id="btPeriodBestMeta">-</small></div>
+            <div class="card"><span>En kötü dönem</span><strong id="btPeriodWorst">-</strong><small id="btPeriodWorstMeta">-</small></div>
+          </div>
+          <div class="scroll">
+            <table class="periodTable">
+              <thead><tr><th>Dönem</th><th>Başlangıç kasa</th><th>Bitiş kasa</th><th>Kâr / Zarar</th><th>Getiri</th><th>Kapanan işlem</th></tr></thead>
+              <tbody id="btPeriodsBody"><tr><td colspan="6">Dönem verisi yükleniyor...</td></tr></tbody>
+            </table>
+          </div>
+          <p class="btMeta">Dönemler backtest başlangıç günü baz alınarak 1, 3, 6 veya 12 aylık eşit aralıklara bölünür. Kasa değeri V33 sermaye + nema modelidir.</p>
+        </div>
+      </details>
 
       <section class="grid">
         <div class="panel wide">
