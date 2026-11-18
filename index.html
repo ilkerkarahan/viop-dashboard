@@ -151,7 +151,7 @@
       $('btStrategy').textContent='Donchian '+(d.donchian_period??'-')+' + ATR('+(d.atr_period??'-')+')×'+num(d.atr_multiplier,1);
       $('btStrategyDetail').textContent=(d.strategy_side??'-')+' · '+(d.strategy_version??'-');
       $('btSizing').textContent='%'+num(d.risk_pct,0)+' risk · dinamik kontrat';
-      $('btSizingDetail').textContent='Teminat/kontrat: '+tl(d.margin_per_contract_tl)+' · 1 puan: '+tl(d.point_value_tl);
+      $('btSizingDetail').textContent='Teminat/kontrat: '+tl(d.margin_per_contract_tl)+' · stop rezervi ayrıca boş tutulur · 1 puan: '+tl(d.point_value_tl);
       $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: en yüksek net K/Z backtesti.';
     }
 
