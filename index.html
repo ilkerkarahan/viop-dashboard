@@ -283,6 +283,10 @@
       try{
         $('healthText').textContent='Backtest yükleniyor...';
         await Promise.all([backtestOverview(),backtestTrades(),backtestEquity()]);
+        await backtestPeriods(activePeriodMonths).catch(e=>{
+          console.error(e);
+          $('btPeriodsBody').innerHTML='<tr><td colspan="6">Dönem verisi yüklenemedi.</td></tr>';
+        });
         $('healthText').textContent='Supabase bağlı';
       }catch(e){
         console.error(e);
@@ -303,6 +307,10 @@
     $('logoutBtn').onclick=async()=>{await sb.auth.signOut();loggedOut()};
     $('refreshBtn').onclick=refresh;
     $('btRefreshBtn').onclick=loadBacktest;
+    document.querySelectorAll('.periodBtn').forEach(b=>b.onclick=()=>backtestPeriods(Number(b.dataset.months)).catch(e=>{
+      console.error(e);
+      $('btPeriodsBody').innerHTML='<tr><td colspan="6">Dönem verisi yüklenemedi.</td></tr>';
+    }));
     $('forwardTab').onclick=()=>showPage('forward');
     $('backtestTab').onclick=()=>showPage('backtest');
     window.addEventListener('resize',()=>{if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
