@@ -75,13 +75,13 @@
           <div class="head">
             <div>
               <h2>5 Yıllık Backtest İşlemleri</h2>
-              <p class="muted">Forward testten tamamen ayrı · LONG-only · Donchian 35 kırılımı · ATR(14)×4 trailing çıkış · dinamik %8 risk</p>
+              <p class="muted">Forward testten tamamen ayrı · LONG-only · Donchian 35 kırılımı · ATR(14)×4 trailing çıkış · tarihsel teminat + stop×5 sermaye motoru</p>
             </div>
             <button id="btRefreshBtn">Yenile</button>
           </div>
           <div class="scroll">
             <table>
-              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Risk</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
+              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Doğal stop riski</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>İndikatör stop riski</th><th>×5 stop rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
               <tbody id="btTradesBody"></tbody>
             </table>
           </div>
@@ -95,7 +95,7 @@
           <div class="status">
             <div><span>Aktif göstergeler</span><b>DONCHIAN + ATR</b></div>
             <div><span>İşlem yönü</span><b>LONG ONLY</b></div>
-            <div><span>Pozisyon yönetimi</span><b>DİNAMİK %8 RİSK</b></div>
+            <div><span>Pozisyon yönetimi</span><b>TEMİNAT + STOP×5</b></div>
             <div><span>Canlı sisteme yazma</span><b class="off">YOK</b></div>
             <div><span>Forward test</span><b>AYRI</b></div>
             <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
@@ -144,15 +144,15 @@
       $('btTrades').textContent=d.trade_count??0;
       $('btResolved').textContent='Kapalı: '+(d.resolved_count??0)+' · +'+(d.positive_count??0)+' / -'+(d.negative_count??0);
       $('btFinalEquity').textContent=tl(d.final_equity_tl??0);
-      $('btNet').textContent='Net K/Z: '+tl(d.net_pnl_tl??0)+' · Getiri: '+(d.total_return_pct==null?'-':num(d.total_return_pct,1)+'%');
+      $('btNet').textContent='Net K/Z: '+tl(d.net_pnl_tl??0)+' · Getiri: '+(d.total_return_pct==null?'-':num(d.total_return_pct,1)+'%')+' · CAGR: '+(d.cagr_pct==null?'-':num(d.cagr_pct,1)+'%');
       $('btProfitFactor').textContent=d.profit_factor==null?'-':num(d.profit_factor,3);
       $('btWinRate').textContent='Kazanma: '+(d.win_rate_pct==null?'-':num(d.win_rate_pct,2)+'%');
-      $('btDrawdown').textContent=tl(d.max_drawdown_tl??0);
+      $('btDrawdown').textContent=(d.max_drawdown_pct==null?'-':('%'+num(d.max_drawdown_pct,2)))+' · '+tl(d.max_drawdown_tl??0);
       $('btStrategy').textContent='Donchian '+(d.donchian_period??'-')+' + ATR('+(d.atr_period??'-')+')×'+num(d.atr_multiplier,1);
       $('btStrategyDetail').textContent=(d.strategy_side??'-')+' · '+(d.strategy_version??'-');
-      $('btSizing').textContent='%'+num(d.risk_pct,0)+' risk · dinamik kontrat';
-      $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Teminat: işlem tarihindeki tarihsel XU030 teminatı':'Teminat/kontrat: '+tl(d.margin_per_contract_tl))+' · stop rezervi ayrıca boş tutulur · 1 puan: '+tl(d.point_value_tl);
-      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: en yüksek net K/Z backtesti.';
+      $('btSizing').textContent='Stop ×'+num(d.stop_buffer_multiplier??5,0)+' · dinamik kontrat';
+      $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Tarihsel XU030 teminatı':'Teminat modeli: '+(d.margin_model??'-'))+' + ATR×4 stop zararı × '+num(d.stop_buffer_multiplier??5,0)+' + tahmini giriş/stop çıkış komisyonu ≤ kasa · Lot: '+(d.min_quantity??'-')+'–'+(d.max_quantity??'-')+' · Ort: '+num(d.avg_quantity,1);
+      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: resmi V32 risk motorunun en son tamamlanan backtesti.';
     }
 
     async function backtestTrades(){
@@ -168,9 +168,13 @@
           <td>${r.side??'-'}</td>
           <td>${r.donchian_period??'-'} mum</td>
           <td>${r.atr_period??'-'} × ${num(r.atr_multiplier,1)}</td>
-          <td>%${num(r.risk_pct,0)}</td>
+          <td>%${num(r.risk_pct,2)}</td>
           <td><b>${r.quantity==null?'-':r.quantity}</b></td>
           <td>${tl(r.margin_used_tl)}</td>
+          <td>${tl(r.indicator_stop_risk_tl)}</td>
+          <td>${tl(r.buffered_stop_reserve_tl)}</td>
+          <td>${tl(r.estimated_fee_reserve_tl)}</td>
+          <td>${tl(r.capital_need_total_tl)}</td>
           <td>${tl(r.notional_exposure_tl)}</td>
           <td>${tr(r.entry_time)}</td>
           <td>${num(r.entry_price)}</td>
