@@ -81,7 +81,7 @@
           </div>
           <div class="scroll">
             <table>
-              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Risk</th><th>Kontrat adedi</th><th>Kullanılan teminat</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
+              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Risk</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
               <tbody id="btTradesBody"></tbody>
             </table>
           </div>
@@ -151,7 +151,7 @@
       $('btStrategy').textContent='Donchian '+(d.donchian_period??'-')+' + ATR('+(d.atr_period??'-')+')×'+num(d.atr_multiplier,1);
       $('btStrategyDetail').textContent=(d.strategy_side??'-')+' · '+(d.strategy_version??'-');
       $('btSizing').textContent='%'+num(d.risk_pct,0)+' risk · dinamik kontrat';
-      $('btSizingDetail').textContent='Teminat/kontrat: '+tl(d.margin_per_contract_tl)+' · stop rezervi ayrıca boş tutulur · 1 puan: '+tl(d.point_value_tl);
+      $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Teminat: işlem tarihindeki tarihsel XU030 teminatı':'Teminat/kontrat: '+tl(d.margin_per_contract_tl))+' · stop rezervi ayrıca boş tutulur · 1 puan: '+tl(d.point_value_tl);
       $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: en yüksek net K/Z backtesti.';
     }
 
@@ -174,6 +174,7 @@
           <td>${tl(r.notional_exposure_tl)}</td>
           <td>${tr(r.entry_time)}</td>
           <td>${num(r.entry_price)}</td>
+          <td><b>${tl(r.margin_per_contract_tl)}</b></td>
           <td>${tr(r.exit_time)}</td>
           <td>${num(r.exit_price)}</td>
           <td>${r.outcome_reason??'-'}</td>
