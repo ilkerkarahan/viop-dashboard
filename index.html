@@ -10,8 +10,8 @@
     .login{min-height:100vh;display:grid;place-items:center;padding:20px}.box,.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px}.box{width:min(430px,100%);padding:28px}.eyebrow{color:var(--blue);font-weight:800;letter-spacing:.14em}.muted{color:var(--muted)}
     form{display:grid;gap:10px;margin-top:20px}input{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1319;color:white}button{padding:10px 14px;border:0;border-radius:10px;background:var(--blue);font-weight:800;cursor:pointer}.secondary{background:#1a2330;color:white;border:1px solid var(--line)}.err{color:var(--red)}
     .wrap{max-width:1500px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.actions{display:flex;gap:10px;align-items:center}.pill{padding:10px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
-    @media(max-width:900px){.cards,.btGrid{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.periodPanel{margin-bottom:14px;padding:0;overflow:hidden}.periodPanel summary{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px;cursor:pointer;list-style:none}.periodPanel summary::-webkit-details-marker{display:none}.periodPanel summary strong{font-size:18px}.periodPanel summary small{display:block;color:var(--muted);margin-top:4px}.periodPanel[open] summary{border-bottom:1px solid var(--line)}.periodBody{padding:18px}.periodControls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.periodBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.periodBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.periodCards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.periodCards .card strong{font-size:23px}.periodTable{min-width:760px}
+    @media(max-width:900px){.cards,.btGrid,.periodCards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid,.periodCards{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}.periodPanel summary{align-items:flex-start}.periodControls{display:grid;grid-template-columns:repeat(2,1fr)}.periodBtn{width:100%}}
   </style>
 </head>
 <body>
@@ -72,6 +72,33 @@
         <div class="card btMetric"><span>Pozisyon boyutlandırma</span><strong id="btSizing" style="font-size:18px">-</strong><small id="btSizingDetail">-</small></div>
       </section>
 
+      <details id="btPeriodDetails" class="panel periodPanel">
+        <summary>
+          <div><strong>Dönemsel Kasa Performansı</strong><small>Toplam kasa · işlem K/Z + TPP nema dahil</small></div>
+          <span class="muted">Aç / Kapat</span>
+        </summary>
+        <div class="periodBody">
+          <div class="periodControls">
+            <button class="periodBtn active" data-months="1">1 Aylık</button>
+            <button class="periodBtn" data-months="3">3 Aylık</button>
+            <button class="periodBtn" data-months="6">6 Aylık</button>
+            <button class="periodBtn" data-months="12">1 Yıllık</button>
+          </div>
+          <div class="periodCards">
+            <div class="card"><span>Son dönem K/Z</span><strong id="btPeriodLatest">-</strong><small id="btPeriodLatestMeta">-</small></div>
+            <div class="card"><span>En iyi dönem</span><strong id="btPeriodBest">-</strong><small id="btPeriodBestMeta">-</small></div>
+            <div class="card"><span>En kötü dönem</span><strong id="btPeriodWorst">-</strong><small id="btPeriodWorstMeta">-</small></div>
+          </div>
+          <div class="scroll">
+            <table class="periodTable">
+              <thead><tr><th>Dönem</th><th>Başlangıç kasa</th><th>Bitiş kasa</th><th>Kâr / Zarar</th><th>Getiri</th><th>Kapanan işlem</th></tr></thead>
+              <tbody id="btPeriodsBody"><tr><td colspan="6">Dönem verisi yükleniyor...</td></tr></tbody>
+            </table>
+          </div>
+          <p class="btMeta">Dönemler backtest başlangıç günü baz alınarak 1, 3, 6 veya 12 aylık eşit aralıklara bölünür. Kasa değeri V33 sermaye + nema modelidir.</p>
+        </div>
+      </details>
+
       <section class="grid">
         <div class="panel wide">
           <div class="head">
@@ -119,7 +146,7 @@
     const num=(v,d=2)=>v==null?'-':Number(v).toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});
     const tl=v=>v==null?'-':num(v)+' TL';
     const tr=v=>v?new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(v)):'-';
-    async function rpc(name){const {data,error}=await sb.rpc(name);if(error)throw error;return data}
+    async function rpc(name,args={}){const {data,error}=await sb.rpc(name,args);if(error)throw error;return data}
     async function overview(){const d=await rpc('viop_dashboard_overview');$('price').textContent=num(d.market?.price);$('marketTime').textContent='Toplama: '+tr(d.market?.collected_at);$('cash').textContent='0,00 TL';$('realized').textContent='Paper işlem: '+(d.paper_mode==='DISABLED'?'KAPALI':'AÇIK');$('candidates').textContent=d.stats?.candidate_count??0;$('resolved').textContent='Kapalı: '+(d.stats?.resolved_count??0)+' · Açık: '+(d.stats?.pending_count??0)+' · +'+(d.stats?.positive_count??0)+' / -'+(d.stats?.negative_count??0);$('netPnl').textContent=tl(d.stats?.illustrative_net_tl??0);$('openPosition').textContent=d.open_position_count??0;const s=d.latest_signal;$('latestTest').textContent=!s?'YOK':((s.outcome_status==='PENDING'?'AÇIK':'KAPALI')+' · '+(s.side??'-')+' · R² '+num(s.r2,3))}
     async function signals(){const rows=await rpc('viop_dashboard_signals');$('signalsBody').innerHTML=(rows||[]).map(r=>{const p=Number(r.net_pnl_tl??0),pc=p>0?'pos':p<0?'neg':'';const isOpen=r.outcome_status==='PENDING';const status=isOpen?'AÇIK':'KAPALI';const sc=isOpen?'warn':'';return `<tr><td>${tr(r.signal_bar_start)}</td><td class="${sc}">${status}</td><td>${r.side??'-'}</td><td>${num(r.r2,4)}</td><td>${num(r.regression_move_pct,3)}</td><td>${tr(r.entry_time)}</td><td>${num(r.entry_price)}</td><td>${tr(r.exit_time)}</td><td>${num(r.exit_price)}</td><td>${r.outcome_reason??(isOpen?'Pozisyon açık':'-')}</td><td>${tl(r.gross_pnl_tl)}</td><td>${tl(r.total_fees_tl)}</td><td class="${pc}">${tl(r.net_pnl_tl)}</td></tr>`}).join('')}
     function draw(rows){const c=$('equityCanvas'),x=c.getContext('2d'),w=c.clientWidth||600,h=320,d=devicePixelRatio||1;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);if(!rows?.length){x.fillStyle='#8fa0b3';x.fillText('Henüz kapanmış Regresyon + R² test işlemi yok.',20,30);return}const vals=rows.map(r=>Number(r.cumulative)),mn=Math.min(0,...vals),mx0=Math.max(0,...vals),mx=mx0===mn?mn+1:mx0,p={l:55,r:15,t:15,b:25},X=i=>p.l+i/Math.max(1,rows.length-1)*(w-p.l-p.r),Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);x.strokeStyle='#67a7ff';x.lineWidth=2.5;x.beginPath();rows.forEach((r,i)=>i?x.lineTo(X(i),Y(Number(r.cumulative))):x.moveTo(X(i),Y(Number(r.cumulative))));x.stroke()}
@@ -212,10 +239,54 @@
     }
 
     async function backtestEquity(){drawBacktest(await rpc('viop_dashboard_backtest_equity'))}
+    let activePeriodMonths=1;
+    const dateOnly=v=>v?new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(v+'T12:00:00+03:00')):'-';
+    async function backtestPeriods(months=activePeriodMonths){
+      activePeriodMonths=Number(months)||1;
+      document.querySelectorAll('.periodBtn').forEach(b=>b.classList.toggle('active',Number(b.dataset.months)===activePeriodMonths));
+      const rows=await rpc('viop_dashboard_backtest_periods',{p_months:activePeriodMonths});
+      const body=$('btPeriodsBody');
+      if(!rows?.length){
+        body.innerHTML='<tr><td colspan="6">Dönem verisi yok.</td></tr>';
+        $('btPeriodLatest').textContent='-';$('btPeriodBest').textContent='-';$('btPeriodWorst').textContent='-';
+        $('btPeriodLatestMeta').textContent='-';$('btPeriodBestMeta').textContent='-';$('btPeriodWorstMeta').textContent='-';
+        return;
+      }
+      const best=rows.reduce((a,b)=>Number(b.pnl_tl)>Number(a.pnl_tl)?b:a,rows[0]);
+      const worst=rows.reduce((a,b)=>Number(b.pnl_tl)<Number(a.pnl_tl)?b:a,rows[0]);
+      const latest=rows[0];
+      const meta=r=>dateOnly(r.period_start)+' → '+dateOnly(r.period_end)+' · Bitiş '+tl(r.end_equity_tl);
+      const setSummary=(valueId,metaId,r)=>{
+        const p=Number(r.pnl_tl??0);
+        const el=$(valueId);
+        el.textContent=(p>=0?'+':'')+tl(p);
+        el.className=p>0?'pos':p<0?'neg':'';
+        $(metaId).textContent=meta(r)+' · '+(r.return_pct==null?'-':((Number(r.return_pct)>=0?'+':'')+num(r.return_pct,2)+'%'));
+      };
+      setSummary('btPeriodLatest','btPeriodLatestMeta',latest);
+      setSummary('btPeriodBest','btPeriodBestMeta',best);
+      setSummary('btPeriodWorst','btPeriodWorstMeta',worst);
+      body.innerHTML=rows.map(r=>{
+        const p=Number(r.pnl_tl??0),pc=p>0?'pos':p<0?'neg':'';
+        const ret=Number(r.return_pct??0);
+        return '<tr>'+
+          '<td>'+dateOnly(r.period_start)+' → '+dateOnly(r.period_end)+'</td>'+
+          '<td>'+tl(r.start_equity_tl)+'</td>'+
+          '<td><b>'+tl(r.end_equity_tl)+'</b></td>'+
+          '<td class="'+pc+'">'+(p>=0?'+':'')+tl(p)+'</td>'+
+          '<td class="'+pc+'">'+(ret>=0?'+':'')+num(ret,2)+'%</td>'+
+          '<td>'+(r.trade_count??0)+'</td>'+
+        '</tr>';
+      }).join('');
+    }
     async function loadBacktest(){
       try{
         $('healthText').textContent='Backtest yükleniyor...';
         await Promise.all([backtestOverview(),backtestTrades(),backtestEquity()]);
+        await backtestPeriods(activePeriodMonths).catch(e=>{
+          console.error(e);
+          $('btPeriodsBody').innerHTML='<tr><td colspan="6">Dönem verisi yüklenemedi.</td></tr>';
+        });
         $('healthText').textContent='Supabase bağlı';
       }catch(e){
         console.error(e);
@@ -236,6 +307,10 @@
     $('logoutBtn').onclick=async()=>{await sb.auth.signOut();loggedOut()};
     $('refreshBtn').onclick=refresh;
     $('btRefreshBtn').onclick=loadBacktest;
+    document.querySelectorAll('.periodBtn').forEach(b=>b.onclick=()=>backtestPeriods(Number(b.dataset.months)).catch(e=>{
+      console.error(e);
+      $('btPeriodsBody').innerHTML='<tr><td colspan="6">Dönem verisi yüklenemedi.</td></tr>';
+    }));
     $('forwardTab').onclick=()=>showPage('forward');
     $('backtestTab').onclick=()=>showPage('backtest');
     window.addEventListener('resize',()=>{if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
