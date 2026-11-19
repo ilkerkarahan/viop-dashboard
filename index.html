@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>VIOP V33 Forward Test Paneli</title>
+  <title>VIOP Forward Simülasyon Paneli</title>
   <style>
     :root{--bg:#0b0f14;--panel:#121820;--line:#24303c;--text:#e9eef4;--muted:#8fa0b3;--green:#45d483;--red:#ff6b6b;--amber:#f4c05e;--blue:#67a7ff}
     *{box-sizing:border-box}body{margin:0;background:#0b0f14;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.hidden{display:none!important}
@@ -19,7 +19,7 @@
   <div id="loginScreen" class="login">
     <div class="box">
       <p class="eyebrow">VIOP AI BOT</p>
-      <h1>V33 Forward Test Paneli</h1>
+      <h1>LONG + SHORT Forward Simülasyonu</h1>
       <p class="muted">Supabase hesabınla giriş yap.</p>
       <form id="loginForm">
         <input id="email" type="email" placeholder="E-posta" required>
@@ -32,13 +32,13 @@
 
   <div id="dashboard" class="wrap hidden">
     <header>
-      <div><p class="eyebrow">VIOP AI BOT</p><h1>V33 Forward Test Paneli</h1><p class="muted">GitHub Actions → Supabase → HTML/CSS/JS · salt-okunur</p></div>
+      <div><p class="eyebrow">VIOP AI BOT</p><h1>LONG + SHORT Forward Simülasyonu</h1><p class="muted">GitHub Actions → Supabase → HTML/CSS/JS · salt-okunur</p></div>
       <div class="actions"><span id="healthText" class="pill">Bağlanıyor...</span><button id="logoutBtn" class="secondary">Çıkış</button></div>
     </header>
 
     <nav class="tabs">
-      <button id="forwardTab" class="tabBtn active">LONG Forward · V33</button>
-      <button id="shortForwardTab" class="tabBtn shortTab">SHORT Forward · CCI</button>
+      <button id="forwardTab" class="tabBtn active">LONG Forward · 3×</button>
+      <button id="shortForwardTab" class="tabBtn shortTab">SHORT Forward · CCI · 3×</button>
       <button id="backtestTab" class="tabBtn">LONG Backtest · 3×</button>
       <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI · 3×</button>
     </nav>
@@ -53,16 +53,16 @@
 
     <section class="grid">
       <div class="panel wide">
-        <div class="head"><div><h2>V33 Forward Test İşlemleri</h2><p class="muted">Canlı VİOP verisi · LONG-only Donchian 35 · ATR(14)×4 trailing stop · stop×5 sermaye motoru · 200.000 TL sanal başlangıç</p></div><button id="refreshBtn">Yenile</button></div>
+        <div class="head"><div><h2>LONG Forward · 3× İşlemleri</h2><p class="muted">Canlı VİOP verisi · LONG-only Donchian 35 · ATR(14)×4 trailing stop · stop×3 sermaye motoru · 200.000 TL sanal başlangıç</p></div><button id="refreshBtn">Yenile</button></div>
         <div class="scroll"><table><thead><tr><th>Sinyal zamanı</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian 35</th><th>ATR14</th><th>Lot</th><th>Giriş zamanı</th><th>Giriş</th><th>Toplam teminat</th><th>1 lot sermaye ihtiyacı</th><th>Başlangıç stop</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Masraf</th><th>Net K/Z</th><th>İşlem neması</th><th>Kapanış kasa</th></tr></thead><tbody id="signalsBody"></tbody></table></div>
       </div>
       <div class="panel"><h2>Sanal Kasa Eğrisi</h2><canvas id="equityCanvas"></canvas></div>
-      <div class="panel"><h2>Sistem Durumu</h2><div class="status"><div><span>Gerçek emir</span><b class="off">KAPALI</b></div><div><span>Sanal forward</span><b class="pos">AKTİF</b></div><div><span>Açık sanal pozisyon</span><b id="openPosition">0</b></div><div><span>Son V33 kararı</span><b id="latestTest">-</b></div><div><span>Strateji</span><b>DONCHIAN 35 + ATR14×4</b></div><div><span>Pozisyon boyutlandırma</span><b>TEMİNAT + STOP×5 + NEMA</b></div><div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div></div></div>
+      <div class="panel"><h2>Sistem Durumu</h2><div class="status"><div><span>Gerçek emir</span><b class="off">KAPALI</b></div><div><span>Sanal forward</span><b class="pos">AKTİF</b></div><div><span>Açık sanal pozisyon</span><b id="openPosition">0</b></div><div><span>Son LONG kararı</span><b id="latestTest">-</b></div><div><span>Strateji</span><b>DONCHIAN 35 + ATR14×4</b></div><div><span>Pozisyon boyutlandırma</span><b>TEMİNAT + STOP×3 + NEMA</b></div><div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div></div></div>
     </section>
     </div>
 
     <div id="shortForwardPage" class="hidden">
-      <p class="shortHint"><span class="shortBadge">CANLI SHORT · SANAL</span> &nbsp; LONG Forward'dan bağımsız 200.000 TL başlangıç · CCI(20) + EMA20/100 · SHORT ONLY · ATR(14)×4 ilk/izleyen stop · 72 mum sınırı · teminat + stop×5 rezervi · komisyon/BSMV ve TPP net nema. Gerçek aracı kurum emri gönderilmez.</p>
+      <p class="shortHint"><span class="shortBadge">CANLI SHORT · SANAL</span> &nbsp; LONG Forward'dan bağımsız 200.000 TL başlangıç · CCI(20) + EMA20/100 · SHORT ONLY · ATR(14)×4 ilk/izleyen stop · 72 mum sınırı · teminat + stop×3 rezervi · komisyon/BSMV ve TPP net nema. Gerçek aracı kurum emri gönderilmez.</p>
       <section class="cards shortGrid">
         <div class="card"><span>SHORT başlangıç kasası</span><strong id="sfInitial">200.000,00 TL</strong><small>LONG hesabından bağımsız</small></div>
         <div class="card"><span>SHORT güncel kasa (gerçekleşen)</span><strong id="sfEquity">-</strong><small id="sfReturn">Net işlem ve nema dahil</small></div>
@@ -86,7 +86,7 @@
           <div><span>Açıklama</span><b id="sfReason">-</b></div>
           <div><span>Açık pozisyon</span><b id="sfOpen">-</b></div>
           <div><span>Giriş / stop</span><b id="sfEntryStop">-</b></div>
-          <div><span>LONG Forward / backtest</span><b class="pos">BAĞIMSIZ · DEĞİŞMEDİ</b></div>
+          <div><span>Stop rezerv katsayısı</span><b>3× · 4×ATR stop</b></div><div><span>LONG Forward / backtest</span><b class="pos">BAĞIMSIZ SİSTEMLER</b></div>
         </div></div>
         <div class="panel wide"><h2>SHORT Son Kararlar</h2><div class="scroll"><table><thead><tr><th>Gözlem zamanı</th><th>Kontrat</th><th>Son tamamlanan mum</th><th>Fiyat</th><th>CCI20</th><th>EMA20</th><th>EMA100</th><th>ATR14</th><th>Karar</th><th>Açıklama</th><th>Kasa</th></tr></thead><tbody id="sfDecisionsBody"><tr><td colspan="11">Henüz karar kaydı yok.</td></tr></tbody></table></div></div>
       </section>
