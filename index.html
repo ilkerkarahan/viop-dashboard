@@ -37,7 +37,8 @@
     </header>
 
     <nav class="tabs">
-      <button id="forwardTab" class="tabBtn active">Forward Test</button>
+      <button id="forwardTab" class="tabBtn active">LONG Forward · V33</button>
+      <button id="shortForwardTab" class="tabBtn shortTab">SHORT Forward · CCI</button>
       <button id="backtestTab" class="tabBtn">5 Yıllık Backtest</button>
       <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI</button>
     </nav>
@@ -58,6 +59,37 @@
       <div class="panel"><h2>Sanal Kasa Eğrisi</h2><canvas id="equityCanvas"></canvas></div>
       <div class="panel"><h2>Sistem Durumu</h2><div class="status"><div><span>Gerçek emir</span><b class="off">KAPALI</b></div><div><span>Sanal forward</span><b class="pos">AKTİF</b></div><div><span>Açık sanal pozisyon</span><b id="openPosition">0</b></div><div><span>Son V33 kararı</span><b id="latestTest">-</b></div><div><span>Strateji</span><b>DONCHIAN 35 + ATR14×4</b></div><div><span>Pozisyon boyutlandırma</span><b>TEMİNAT + STOP×5 + NEMA</b></div><div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div></div></div>
     </section>
+    </div>
+
+    <div id="shortForwardPage" class="hidden">
+      <p class="shortHint"><span class="shortBadge">CANLI SHORT · SANAL</span> &nbsp; LONG Forward'dan bağımsız 200.000 TL başlangıç · CCI(20) + EMA20/100 · SHORT ONLY · ATR(14)×4 ilk/izleyen stop · 72 mum sınırı · teminat + stop×5 rezervi · komisyon/BSMV ve TPP net nema. Gerçek aracı kurum emri gönderilmez.</p>
+      <section class="cards shortGrid">
+        <div class="card"><span>SHORT başlangıç kasası</span><strong id="sfInitial">200.000,00 TL</strong><small>LONG hesabından bağımsız</small></div>
+        <div class="card"><span>SHORT güncel kasa (gerçekleşen)</span><strong id="sfEquity">-</strong><small id="sfReturn">Net işlem ve nema dahil</small></div>
+        <div class="card"><span>Gerçekleşen net işlem K/Z</span><strong id="sfRealized">-</strong><small>Komisyon + BSMV düşüldü</small></div>
+        <div class="card"><span>Toplam net TPP neması</span><strong id="sfNema">-</strong><small>Sadece SHORT kasası</small></div>
+        <div class="card"><span>SHORT işlemleri</span><strong id="sfTrades">-</strong><small id="sfTradeMeta">Açık 0 · Kapalı 0</small></div>
+        <div class="card"><span>Aktif SHORT kontrat</span><strong id="sfQty">-</strong><small id="sfContract">Kontrat bekleniyor</small></div>
+        <div class="card"><span>Son gözlenen VİOP fiyatı</span><strong id="sfPrice">-</strong><small id="sfMarketTime">Piyasa gözlemi bekleniyor</small></div>
+        <div class="card"><span>Açık pozisyon tahmini K/Z</span><strong id="sfUnrealized">-</strong><small>İşlem fiyat farkı, çıkış henüz gerçekleşmedi</small></div>
+      </section>
+      <section class="grid">
+        <div class="panel wide"><div class="head"><div><h2>Canlı SHORT Forward İşlemleri</h2><p class="muted">Ayrı 200.000 TL sanal sermaye · 4×ATR ilk/izleyen stop · gerçek işlem gönderilmez.</p></div><button id="sfRefreshBtn">Yenile</button></div>
+          <div class="scroll"><table class="shortTable"><thead><tr><th>Sinyal</th><th>Kontrat</th><th>Yön</th><th>Durum</th><th>Lot</th><th>Giriş zamanı</th><th>Giriş</th><th>CCI20</th><th>EMA20 / EMA100</th><th>ATR14</th><th>İlk stop</th><th>İzleyen stop</th><th>1 lot teminat</th><th>Toplam teminat</th><th>1 lot sermaye</th><th>Serbest kasa</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Neden</th><th>Brüt K/Z</th><th>Masraf</th><th>Net K/Z</th><th>İşlem neması</th><th>Kapanış kasası</th></tr></thead><tbody id="sfTradesBody"><tr><td colspan="24">SHORT canlı forward henüz başlamadı.</td></tr></tbody></table></div>
+        </div>
+        <div class="panel"><h2>SHORT Canlı Kasa Eğrisi</h2><canvas id="sfEquityCanvas"></canvas><p class="shortMeta">Gerçekleşen sanal işlem sonuçları + TPP nema; açık işlemin anlık fiyat farkı kasaya eklenmez.</p></div>
+        <div class="panel"><h2>SHORT Motor Durumu</h2><div class="status">
+          <div><span>Çalışma modu</span><b class="warn">PAPER ONLY</b></div>
+          <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
+          <div><span>Son motor çalışması</span><b id="sfUpdated">-</b></div>
+          <div><span>Son SHORT kararı</span><b id="sfAction">-</b></div>
+          <div><span>Açıklama</span><b id="sfReason">-</b></div>
+          <div><span>Açık pozisyon</span><b id="sfOpen">-</b></div>
+          <div><span>Giriş / stop</span><b id="sfEntryStop">-</b></div>
+          <div><span>LONG Forward / backtest</span><b class="pos">BAĞIMSIZ · DEĞİŞMEDİ</b></div>
+        </div></div>
+        <div class="panel wide"><h2>SHORT Son Kararlar</h2><div class="scroll"><table><thead><tr><th>Gözlem zamanı</th><th>Kontrat</th><th>Son tamamlanan mum</th><th>Fiyat</th><th>CCI20</th><th>EMA20</th><th>EMA100</th><th>ATR14</th><th>Karar</th><th>Açıklama</th><th>Kasa</th></tr></thead><tbody id="sfDecisionsBody"><tr><td colspan="11">Henüz karar kaydı yok.</td></tr></tbody></table></div></div>
+      </section>
     </div>
 
     <div id="backtestPage" class="hidden">
@@ -490,15 +522,85 @@
         $('sbtTradesBody').innerHTML='<tr><td colspan="24">SHORT verisi yüklenemedi. Giriş oturumunuzu kontrol edip tekrar deneyin.</td></tr>';
       }
     }
+    // Isolated SHORT live PAPER RPC: never queries or mutates the LONG state.
+    let shortForwardData=null;
+    function drawShortForward(rows,state){
+      const c=$('sfEquityCanvas'),x=c.getContext('2d'),w=c.clientWidth||600,h=320,d=window.devicePixelRatio||1;
+      c.width=Math.round(w*d);c.height=Math.round(h*d);x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);
+      const points=[Number(state.initial_capital_tl),...(rows||[]).map(r=>Number(r.equity)),Number(state.account_equity_tl)];
+      const mn0=Math.min(...points),mx0=Math.max(...points),pad=Math.max(1,(mx0-mn0)*.15),mn=mn0-pad,mx=mx0+pad,p={l:57,r:15,t:22,b:25};
+      const X=i=>p.l+i/Math.max(1,points.length-1)*(w-p.l-p.r);
+      const Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);
+      x.strokeStyle='#f4c05e';x.lineWidth=2.5;x.beginPath();points.forEach((v,i)=>i?x.lineTo(X(i),Y(v)):x.moveTo(X(i),Y(v)));x.stroke();
+      x.fillStyle='#c7d0da';x.font='12px system-ui';x.fillText('Kasa: '+tl(points[points.length-1]),12,14);
+    }
+    function renderShortForward(d){
+      const s=d.state,rows=d.trades||[],open=s.position_open,initial=Number(s.initial_capital_tl),equityNow=Number(s.account_equity_tl);
+      const done=rows.filter(r=>r.status==='CLOSED').length,active=rows.filter(r=>r.status==='OPEN').length;
+      $('sfInitial').textContent=tl(initial);$('sfEquity').textContent=tl(equityNow);
+      const diff=equityNow-initial;
+      $('sfReturn').textContent=shortSignedTl(diff)+' · '+(diff>=0?'+':'')+num(100*diff/initial,2)+'%';
+      $('sfRealized').textContent=shortSignedTl(s.realized_trade_pnl_tl);$('sfRealized').className=shortClass(s.realized_trade_pnl_tl);
+      $('sfNema').textContent=tl(s.cumulative_nema_tl);
+      $('sfTrades').textContent=rows.length;$('sfTradeMeta').textContent='Açık '+active+' · Kapalı '+done;
+      $('sfQty').textContent=open?String(s.position_quantity)+' SHORT':'0 · pozisyon yok';
+      $('sfContract').textContent=s.contract_code||'VİOP kontratı bekleniyor';
+      $('sfPrice').textContent=num(s.last_market_price);$('sfMarketTime').textContent='Mum: '+tr(s.last_market_time);
+      $('sfUpdated').textContent=tr(s.updated_at);
+      $('sfAction').textContent=s.last_action||'-';$('sfReason').textContent=s.last_reason||'-';
+      $('sfOpen').textContent=open?'EVET · '+s.position_quantity+' lot':'HAYIR';
+      $('sfEntryStop').textContent=open?num(s.position_entry_price)+' / '+num(s.trailing_stop_price):'-';
+      let unrealized=null;
+      if(open&&s.last_market_price!=null){
+        const qty=Number(s.position_quantity),hypotheticalExit=Number(s.last_market_price)+1;
+        const exitFee=hypotheticalExit*10*qty*.00084*1.05;
+        unrealized=(Number(s.position_entry_price)-hypotheticalExit)*10*qty-Number(s.position_entry_fee_tl||0)-exitFee;
+      }
+      $('sfUnrealized').textContent=unrealized==null?'-':shortSignedTl(unrealized);
+      $('sfUnrealized').className=unrealized==null?'':shortClass(unrealized);
+      const reasons={STOP:'4×ATR stop',TIME:'72 mum süre sınırı',ROLL:'Kontrat devri'};
+      $('sfTradesBody').innerHTML=rows.length?rows.map(r=>{
+        const pnl=r.net_pnl_tl==null?null:Number(r.net_pnl_tl);
+        return '<tr><td>'+tr(r.signal_bar_start)+'</td><td>'+shortEsc(r.contract_code)+'</td><td class="warn">SHORT</td>'+
+          '<td>'+shortEsc(r.status==='OPEN'?'AÇIK':'KAPALI')+'</td><td><b>'+r.quantity+'</b></td>'+
+          '<td>'+tr(r.entry_time)+'</td><td>'+num(r.entry_price)+'</td><td>'+num(r.cci20)+'</td>'+
+          '<td>'+num(r.ema20)+' / '+num(r.ema100)+'</td><td>'+num(r.initial_atr)+'</td>'+
+          '<td>'+num(r.initial_stop_price)+'</td><td>'+num(r.trailing_stop_price)+'</td>'+
+          '<td>'+tl(r.margin_per_contract_tl)+'</td><td>'+tl(r.margin_total_tl)+'</td><td>'+tl(r.capital_need_per_contract_tl)+'</td>'+
+          '<td>'+tl(r.free_cash_at_entry_tl)+'</td><td>'+tr(r.exit_time)+'</td><td>'+num(r.exit_price)+'</td>'+
+          '<td>'+shortEsc(reasons[r.exit_reason]||r.exit_reason||'-')+'</td><td>'+tl(r.gross_pnl_tl)+'</td>'+
+          '<td>'+tl(r.total_fees_tl)+'</td><td class="'+(pnl==null?'':shortClass(pnl))+'">'+(pnl==null?'-':shortSignedTl(pnl))+'</td>'+
+          '<td>'+tl(r.trade_nema_tl)+'</td><td>'+tl(r.equity_after_tl)+'</td></tr>';
+      }).join(''):'<tr><td colspan="24">Henüz açılmış SHORT işlemi yok. Sinyal bekleniyor.</td></tr>';
+      $('sfDecisionsBody').innerHTML=(d.decisions||[]).length?d.decisions.map(r=>
+        '<tr><td>'+tr(r.observed_at)+'</td><td>'+shortEsc(r.contract_code)+'</td><td>'+tr(r.completed_bar_start)+'</td>'+
+        '<td>'+num(r.market_price)+'</td><td>'+num(r.cci20)+'</td><td>'+num(r.ema20)+'</td><td>'+num(r.ema100)+'</td>'+
+        '<td>'+num(r.atr14)+'</td><td>'+shortEsc(r.action)+'</td><td>'+shortEsc(r.reason)+'</td><td>'+tl(r.account_equity_tl)+'</td></tr>'
+      ).join(''):'<tr><td colspan="11">İlk piyasa değerlendirmesi henüz yapılmadı.</td></tr>';
+      drawShortForward(d.equity,s);
+    }
+    async function loadShortForward(){
+      try{
+        $('healthText').textContent='SHORT forward yükleniyor...';
+        shortForwardData=await rpc('viop_dashboard_short_forward');
+        if(!shortForwardData?.state)throw Error('SHORT kasa durumu bulunamadı');
+        renderShortForward(shortForwardData);
+        $('healthText').textContent='Supabase bağlı · SHORT PAPER';
+      }catch(e){console.error(e);$('healthText').textContent='SHORT forward veri hatası';
+        $('sfTradesBody').innerHTML='<tr><td colspan="24">SHORT canlı verisi yüklenemedi. Oturumu ve bağlantıyı kontrol edin.</td></tr>';
+      }
+    }
     function showPage(name){
-      const back=name==='backtest',short=name==='short';
-      $('forwardPage').classList.toggle('hidden',back||short);
+      const back=name==='backtest',short=name==='short',shortForward=name==='shortForward';
+      $('forwardPage').classList.toggle('hidden',back||short||shortForward);
+      $('shortForwardPage').classList.toggle('hidden',!shortForward);
       $('backtestPage').classList.toggle('hidden',!back);
       $('shortBacktestPage').classList.toggle('hidden',!short);
-      $('forwardTab').classList.toggle('active',!back&&!short);
+      $('forwardTab').classList.toggle('active',!back&&!short&&!shortForward);
+      $('shortForwardTab').classList.toggle('active',shortForward);
       $('backtestTab').classList.toggle('active',back);
       $('shortBacktestTab').classList.toggle('active',short);
-      if(back)loadBacktest();else if(short)loadShortBacktest();else refresh();
+      if(back)loadBacktest();else if(short)loadShortBacktest();else if(shortForward)loadShortForward();else refresh();
     }
     function loggedIn(){$('loginScreen').classList.add('hidden');$('dashboard').classList.remove('hidden');refresh()}
     function loggedOut(){$('dashboard').classList.add('hidden');$('loginScreen').classList.remove('hidden')}
@@ -511,11 +613,13 @@
       $('btPeriodsBody').innerHTML='<tr><td colspan="6">Dönem verisi yüklenemedi.</td></tr>';
     }));
     $('forwardTab').onclick=()=>showPage('forward');
+    $('shortForwardTab').onclick=()=>showPage('shortForward');
     $('backtestTab').onclick=()=>showPage('backtest');
     $('shortBacktestTab').onclick=()=>showPage('short');
     $('sbtRefreshBtn').onclick=()=>loadShortBacktest(true);
+    $('sfRefreshBtn').onclick=loadShortForward;
     document.querySelectorAll('.shortPeriodBtn').forEach(b=>b.onclick=()=>shortBacktestPeriods(Number(b.dataset.shortMonths)));
-    window.addEventListener('resize',()=>{if(!$('shortBacktestPage').classList.contains('hidden')){if(shortBacktestData)drawShortBacktest(shortBacktestData.equity_daily)}else if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
+    window.addEventListener('resize',()=>{if(!$('shortForwardPage').classList.contains('hidden')){if(shortForwardData)drawShortForward(shortForwardData.equity,shortForwardData.state)}else if(!$('shortBacktestPage').classList.contains('hidden')){if(shortBacktestData)drawShortBacktest(shortBacktestData.equity_daily)}else if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
     (async()=>{const {data}=await sb.auth.getSession();data.session?loggedIn():loggedOut()})();
   </script>
 </body>
