@@ -12,6 +12,7 @@
     .wrap{max-width:1500px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.actions{display:flex;gap:10px;align-items:center}.pill{padding:10px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
     .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.periodPanel{display:block;width:100%;max-width:none;margin-bottom:14px;padding:0;overflow:hidden}.periodPanel summary{display:flex;width:100%;justify-content:space-between;gap:16px;align-items:center;padding:18px;cursor:pointer;list-style:none}.periodPanel summary::-webkit-details-marker{display:none}.periodPanel summary strong{font-size:18px}.periodPanel summary small{display:block;color:var(--muted);margin-top:4px}.periodPanel[open] summary{border-bottom:1px solid var(--line)}.periodBody{width:100%;padding:18px}.periodControls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.periodBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.periodBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.periodCards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.periodCards .card strong{font-size:23px}.periodTable{width:100%;min-width:1100px}
     @media(max-width:900px){.cards,.btGrid,.periodCards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}.periodPanel{width:calc(100vw - 32px);max-width:calc(100vw - 32px);min-width:calc(100vw - 32px);margin-left:0;margin-right:0}.periodPanel summary{align-items:flex-start}.periodPanel[open]{width:1100px;max-width:none;min-width:1100px}.periodPanel[open] .periodBody{min-width:1100px}.periodPanel[open] .periodCards{grid-template-columns:repeat(3,minmax(280px,1fr))}.periodPanel[open] .periodControls{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr))}.periodPanel[open] .periodTable{min-width:1060px}.periodBtn{width:100%}}
+    .tabs{flex-wrap:wrap}.shortTab.active,.shortPeriodBtn.active{background:var(--amber);border-color:var(--amber);color:#14110b}.shortBadge{display:inline-block;background:#332a15;border:1px solid #6c5424;color:var(--amber);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:800}.shortHint{border-left:3px solid var(--amber);padding:10px 14px;background:#171b1b;border-radius:8px;margin:0 0 15px;color:#d0d7dd;line-height:1.65}.shortGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.shortGrid .card strong{font-size:clamp(19px,2vw,27px);overflow-wrap:anywhere}.shortPeriodBody{padding:18px}.shortPeriodBody .periodCards{margin-top:10px}.shortTable{min-width:1900px}.shortPeriodTable{min-width:950px}.shortMeta{font-size:12px;line-height:1.7;color:var(--muted)}@media(max-width:900px){.shortGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.shortGrid{grid-template-columns:1fr}.tabs .tabBtn{min-width:130px;font-size:12px;padding:10px 8px}.shortPeriodBody{width:100%;overflow:auto}.shortPeriodBody .periodCards{grid-template-columns:1fr}.shortPeriodBody .periodControls{display:flex}.shortPeriodBody .periodBtn{width:auto}.shortPeriodBody .scroll{max-width:100%}.shortPeriodPanel[open]{width:100%;max-width:100%;min-width:0}.shortPeriodPanel[open] .periodBody{min-width:0}}
   </style>
 </head>
 <body>
@@ -38,6 +39,7 @@
     <nav class="tabs">
       <button id="forwardTab" class="tabBtn active">Forward Test</button>
       <button id="backtestTab" class="tabBtn">5 Yıllık Backtest</button>
+      <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI</button>
     </nav>
 
     <div id="forwardPage">
@@ -130,6 +132,65 @@
             <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
             <div><span>API erişimi</span><b>AUTHENTICATED / READ ONLY</b></div>
           </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="shortBacktestPage" class="hidden">
+      <p class="shortHint"><span class="shortBadge">BAĞIMSIZ SHORT SİMÜLASYONU</span> &nbsp; Ayrı 200.000 TL başlangıç kasası · CCI(20) + EMA20/100 · ilk ve izleyen stop 4×ATR(14) · en fazla 72 saatlik mum · tarihsel teminat + stop riski ×5 · komisyon/BSMV + TPP net nema. Mevcut LONG backtest ve çalışan forward sistem bu koşudan etkilenmez.</p>
+      <section class="btGrid shortGrid">
+        <div class="card btMetric"><span>Veri dönemi</span><strong id="sbtCoverage">-</strong><small id="sbtCandles">-</small></div>
+        <div class="card btMetric"><span>Başlangıç sermayesi</span><strong id="sbtInitial">-</strong><small>LONG kasasından tamamen ayrı</small></div>
+        <div class="card btMetric"><span>Kapanan SHORT işlemi</span><strong id="sbtTrades">-</strong><small id="sbtWinCount">-</small></div>
+        <div class="card btMetric"><span>SHORT final kasa</span><strong id="sbtFinal">-</strong><small id="sbtReturn">-</small></div>
+        <div class="card btMetric"><span>Net işlem K/Z</span><strong id="sbtTradePnl">-</strong><small>Gerçekleşen masraflar düşülmüş</small></div>
+        <div class="card btMetric"><span>Net TPP neması</span><strong id="sbtNema">-</strong><small>İşlem açık/kapalı dönemler</small></div>
+        <div class="card btMetric"><span>Toplam işlem maliyeti</span><strong id="sbtFees">-</strong><small>Komisyon ve komisyon BSMV toplamı; net K/Z içinde</small></div>
+        <div class="card btMetric"><span>Profit factor / Başarı</span><strong id="sbtPf">-</strong><small id="sbtWinRate">-</small></div>
+        <div class="card btMetric"><span>Maksimum düşüş</span><strong id="sbtDd">-</strong><small>Günlük kasa eğrisi</small></div>
+        <div class="card btMetric"><span>Ortalama kontrat</span><strong id="sbtQty">-</strong><small>Tarihsel teminat ve stop×5 limiti</small></div>
+        <div class="card btMetric"><span>2025–2026 ayrı başlangıç testi</span><strong id="sbtHoldout">-</strong><small id="sbtHoldoutMeta">-</small></div>
+        <div class="card btMetric"><span>Sinyal / çıkış</span><strong style="font-size:18px">CCI + EMA / ATR×4</strong><small>CCI +100 altı kesişim · EMA20 &lt; EMA100 · stop / kontrat devri / 72 mum</small></div>
+      </section>
+
+      <details class="panel periodPanel shortPeriodPanel" id="sbtPeriodDetails">
+        <summary><div><strong>SHORT Dönemsel Kasa Performansı</strong><small>Bağımsız SHORT kasa; net işlem K/Z ve net nema dahil</small></div><span class="muted">Aç / Kapat</span></summary>
+        <div class="periodBody shortPeriodBody">
+          <div class="periodControls">
+            <button class="periodBtn shortPeriodBtn active" data-short-months="1">1 Aylık</button>
+            <button class="periodBtn shortPeriodBtn" data-short-months="3">3 Aylık</button>
+            <button class="periodBtn shortPeriodBtn" data-short-months="6">6 Aylık</button>
+            <button class="periodBtn shortPeriodBtn" data-short-months="12">1 Yıllık</button>
+          </div>
+          <div class="periodCards">
+            <div class="card"><span>Son dönem K/Z</span><strong id="sbtPeriodLatest">-</strong><small id="sbtPeriodLatestMeta">-</small></div>
+            <div class="card"><span>En iyi dönem</span><strong id="sbtPeriodBest">-</strong><small id="sbtPeriodBestMeta">-</small></div>
+            <div class="card"><span>En kötü dönem</span><strong id="sbtPeriodWorst">-</strong><small id="sbtPeriodWorstMeta">-</small></div>
+          </div>
+          <div class="scroll"><table class="shortPeriodTable"><thead><tr><th>Dönem</th><th>Başlangıç kasa</th><th>Bitiş kasa</th><th>Kâr / Zarar</th><th>Getiri</th><th>Kapanan SHORT</th></tr></thead><tbody id="sbtPeriodsBody"><tr><td colspan="6">SHORT verisi yükleniyor...</td></tr></tbody></table></div>
+          <p class="shortMeta">Dönemler 19.11.2021 başlangıcından itibaren belirlenen ay adedine bölünür. Günlük kasa değeri kapanmış işlemler ile TPP net nemayı içerir; açık pozisyonun henüz gerçekleşmemiş fiyat farkı ayrıca işaretlenmez.</p>
+        </div>
+      </details>
+
+      <section class="grid">
+        <div class="panel wide">
+          <div class="head"><div><h2>CCI Tabanlı SHORT İşlem Dökümü</h2><p class="muted">132 işlemin giriş/çıkış zamanları, kontrat adedi, 4×ATR başlangıç stopu, tarihsel teminatı, stop×5 rezervi, komisyonu, net sonucu ve kalan kasası.</p></div><button id="sbtRefreshBtn">Yenile</button></div>
+          <div class="scroll"><table class="shortTable"><thead><tr><th>Giriş zamanı</th><th>Kontrat</th><th>Yön</th><th>Adet</th><th>Giriş fiyatı</th><th>ATR(14)</th><th>İlk stop (4×ATR)</th><th>1 lot teminat</th><th>Toplam teminat</th><th>Stop riski</th><th>Stop×5 rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Serbest nakit</th><th>Çıkış zamanı</th><th>Çıkış fiyatı</th><th>Çıkış nedeni</th><th>Brüt K/Z</th><th>Komisyon + BSMV</th><th>Net K/Z</th><th>İşlem öncesi nema</th><th>Pozisyon neması</th><th>Kümülatif nema</th><th>Kapanış kasası</th></tr></thead><tbody id="sbtTradesBody"><tr><td colspan="24">SHORT işlem verisi yükleniyor...</td></tr></tbody></table></div>
+        </div>
+        <div class="panel"><h2>SHORT Kasa Eğrisi</h2><canvas id="sbtEquityCanvas"></canvas><p class="shortMeta" id="sbtCurveNote">Ayrı 200.000 TL ile başlayan günlük net kasa.</p></div>
+        <div class="panel"><h2>SHORT Backtest Bilgisi</h2>
+          <div class="status">
+            <div><span>Yön</span><b class="warn">SADECE SHORT</b></div>
+            <div><span>Giriş</span><b>CCI20 + EMA20/100</b></div>
+            <div><span>İlk / izleyen stop</span><b>4×ATR(14)</b></div>
+            <div><span>Süre sınırı</span><b>72 saatlik mum</b></div>
+            <div><span>Pozisyon motoru</span><b>TEMİNAT + STOP×5 + KOMİSYON</b></div>
+            <div><span>Nema</span><b>TPP O/N · NET</b></div>
+            <div><span>Mevcut LONG / forward</span><b class="pos">DEĞİŞMEDİ</b></div>
+            <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
+            <div><span>Veri türü</span><b>DONDURULMUŞ TARİHSEL</b></div>
+          </div>
+          <p class="shortMeta" id="sbtNotes">Sonuçlar geçmiş veri simülasyonudur; ileriye dönük kâr garantisi oluşturmaz.</p>
         </div>
       </section>
     </div>
@@ -328,13 +389,116 @@
         $('healthText').textContent='Backtest veri hatası';
       }
     }
+    // Yalnızca yeni SHORT sekmesi: mevcut LONG RPC/ekran/bot koduna dokunulmaz.
+    let shortBacktestData=null,shortPeriodMonths=1;
+    const shortClass=v=>Number(v)>0?'pos':Number(v)<0?'neg':'';
+    const shortSignedTl=v=>(Number(v)>=0?'+':'')+tl(v);
+    const shortEsc=v=>String(v??'-').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    function shortBacktestSummary(d){
+      const o=d.overview,h=d.holdout,s=d.strategy;
+      $('sbtCoverage').textContent=dateOnly(d.data_start.slice(0,10))+' → '+dateOnly(d.data_end.slice(0,10));
+      $('sbtCandles').textContent=num(d.data.candles,0)+' saatlik mum · '+d.data.contracts+' kontrat';
+      $('sbtInitial').textContent=tl(d.data.initial_capital_tl);
+      $('sbtTrades').textContent=o.count;
+      $('sbtWinCount').textContent='Kazanan '+o.wins+' · Kaybeden '+(o.count-o.wins);
+      $('sbtFinal').textContent=tl(o.final_tl);
+      $('sbtReturn').textContent='Toplam getiri +%'+num(o.return_pct,2)+' · Nakit ve nema dahil';
+      $('sbtTradePnl').textContent=shortSignedTl(o.trade_pnl_tl);
+      $('sbtTradePnl').className=shortClass(o.trade_pnl_tl);
+      $('sbtNema').textContent=tl(o.nema_tl);
+      $('sbtFees').textContent=tl(o.commission_tl);
+      $('sbtPf').textContent=num(o.profit_factor,3);
+      $('sbtWinRate').textContent='Kazanma oranı %'+num(100*o.wins/o.count,2);
+      $('sbtDd').textContent='%'+num(o.max_drawdown_pct,2);
+      $('sbtQty').textContent=num(o.avg_qty,2);
+      $('sbtHoldout').textContent=tl(h.final_tl);
+      $('sbtHoldoutMeta').textContent='2025–2026, yeniden 200.000 TL · '+h.count+' SHORT · DD %'+num(h.max_drawdown_pct,2);
+      $('sbtNotes').textContent='Sinyal: '+s.entry+'. Stop: ilk ve izleyen '+s.initial_stop_atr+'×ATR, en fazla '+s.max_hold_bars+' saatlik mum. Giriş ve çıkışta ayrı ayrı '+s.slippage_points_per_side+' puan kayma; komisyon/BSMV ve TPP net nema dahildir. Son tarihsel veri: '+dateOnly(d.data_end.slice(0,10))+'. Bu sonuç geçmiş veri simülasyonudur; gerçek emir verilmez.';
+      $('sbtCurveNote').textContent='Bağımsız '+tl(d.data.initial_capital_tl)+' başlangıç; günlük kasa, net işlem sonucu ve TPP nemasını içerir.';
+    }
+    function shortBacktestTrades(rows){
+      $('sbtTradesBody').innerHTML=(rows||[]).length?rows.map(r=>{
+        const p=Number(r.net_pnl_tl??0),pc=shortClass(p),exitReason=({'STOP':'ATR stop','ROLL':'Kontrat devri','TIME':'72 mum süre sınırı'})[r.exit_reason]||r.exit_reason||'-';
+        return '<tr>'+
+          '<td>'+tr(r.entry_time)+'</td><td>'+shortEsc(r.contract)+'</td><td class="warn">SHORT</td>'+
+          '<td><b>'+num(r.qty,0)+'</b></td><td>'+num(r.entry_price,2)+'</td><td>'+num(r.atr14_at_entry,2)+'</td>'+
+          '<td>'+num(r.first_stop_price,2)+'</td><td>'+tl(r.margin_per_contract_tl)+'</td><td>'+tl(r.total_margin_tl)+'</td>'+
+          '<td>'+tl(r.indicator_stop_risk_tl)+'</td><td>'+tl(r.stop_buffer_reserve_tl)+'</td><td>'+tl(r.fee_reserve_tl)+'</td>'+
+          '<td>'+tl(r.capital_need_total_tl)+'</td><td>'+tl(r.free_cash_at_entry_tl)+'</td>'+
+          '<td>'+tr(r.exit_time)+'</td><td>'+num(r.exit_price,2)+'</td><td>'+shortEsc(exitReason)+'</td>'+
+          '<td class="'+shortClass(r.gross_pnl_tl)+'">'+tl(r.gross_pnl_tl)+'</td><td>'+tl(r.total_fees_tl)+'</td>'+
+          '<td class="'+pc+'">'+shortSignedTl(p)+'</td><td>'+tl(r.idle_nema_before_entry_tl)+'</td><td>'+tl(r.position_nema_tl)+'</td>'+
+          '<td>'+tl(r.cumulative_nema_tl)+'</td><td><b>'+tl(r.equity_after_tl)+'</b></td></tr>';
+      }).join(''):'<tr><td colspan="24">Henüz SHORT işlem verisi bulunmuyor.</td></tr>';
+    }
+    function drawShortBacktest(rows){
+      const c=$('sbtEquityCanvas'),x=c.getContext('2d'),w=c.clientWidth||600,h=320,d=window.devicePixelRatio||1;
+      c.width=Math.round(w*d);c.height=Math.round(h*d);x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);
+      if(!rows?.length){x.fillStyle='#8fa0b3';x.fillText('SHORT kasa verisi yok.',20,30);return}
+      const vals=rows.map(r=>Number(r.equity_tl)),mn0=Math.min(...vals),mx0=Math.max(...vals),pad=Math.max(1,(mx0-mn0)*.1);
+      const mn=mn0-pad,mx=mx0+pad,p={l:56,r:15,t:20,b:28};
+      const X=i=>p.l+i/Math.max(1,rows.length-1)*(w-p.l-p.r);
+      const Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);
+      x.strokeStyle='#f4c05e';x.lineWidth=2.5;x.beginPath();
+      rows.forEach((r,i)=>i?x.lineTo(X(i),Y(Number(r.equity_tl))):x.moveTo(X(i),Y(Number(r.equity_tl))));
+      x.stroke();x.fillStyle='#c5cdd7';x.font='12px system-ui';x.fillText('Son kasa: '+tl(vals[vals.length-1]),12,14);
+    }
+    function shortBacktestPeriods(months=shortPeriodMonths){
+      shortPeriodMonths=Number(months)||1;
+      document.querySelectorAll('.shortPeriodBtn').forEach(b=>b.classList.toggle('active',Number(b.dataset.shortMonths)===shortPeriodMonths));
+      const d=shortBacktestData,body=$('sbtPeriodsBody');
+      if(!d?.equity_daily?.length){body.innerHTML='<tr><td colspan="6">Dönem verisi yok.</td></tr>';return}
+      const daily=d.equity_daily,allTrades=d.trades,anchor=new Date(d.data_start.slice(0,10)+'T12:00:00Z'),rows=[];
+      let periodStart=new Date(anchor),previous=Number(d.data.initial_capital_tl);
+      for(let n=0;n<120;n++){
+        const from=periodStart.toISOString().slice(0,10);
+        if(from>d.data_end.slice(0,10))break;
+        const next=new Date(Date.UTC(anchor.getUTCFullYear(),anchor.getUTCMonth()+(n+1)*shortPeriodMonths,anchor.getUTCDate(),12));
+        const to=next.toISOString().slice(0,10);
+        const series=daily.filter(r=>r.date>=from&&r.date<to);
+        if(series.length){
+          const last=series[series.length-1],end=Number(last.equity_tl);
+          const tradeCount=allTrades.filter(r=>r.exit_time.slice(0,10)>=from&&r.exit_time.slice(0,10)<to).length;
+          rows.push({from:from,to:last.date,start:previous,end:end,pnl:end-previous,ret:previous?100*(end-previous)/previous:0,count:tradeCount});
+          previous=end;
+        }
+        periodStart=next;
+      }
+      rows.reverse();
+      if(!rows.length){body.innerHTML='<tr><td colspan="6">Dönem verisi yok.</td></tr>';return}
+      const best=rows.reduce((a,b)=>b.pnl>a.pnl?b:a,rows[0]),worst=rows.reduce((a,b)=>b.pnl<a.pnl?b:a,rows[0]);
+      const setMetric=(id,metaId,r)=>{
+        $(id).textContent=shortSignedTl(r.pnl);$(id).className=shortClass(r.pnl);
+        $(metaId).textContent=dateOnly(r.from)+' → '+dateOnly(r.to)+' · Bitiş '+tl(r.end)+' · '+(r.ret>=0?'+':'')+num(r.ret,2)+'%';
+      };
+      setMetric('sbtPeriodLatest','sbtPeriodLatestMeta',rows[0]);setMetric('sbtPeriodBest','sbtPeriodBestMeta',best);setMetric('sbtPeriodWorst','sbtPeriodWorstMeta',worst);
+      body.innerHTML=rows.map(r=>'<tr><td>'+dateOnly(r.from)+' → '+dateOnly(r.to)+'</td><td>'+tl(r.start)+'</td><td>'+tl(r.end)+'</td>'+
+        '<td class="'+shortClass(r.pnl)+'">'+shortSignedTl(r.pnl)+'</td><td class="'+shortClass(r.ret)+'">'+(r.ret>=0?'+':'')+num(r.ret,2)+'%</td><td>'+r.count+'</td></tr>').join('');
+    }
+    async function loadShortBacktest(force=false){
+      try{
+        $('healthText').textContent='SHORT backtest yükleniyor...';
+        if(force||!shortBacktestData)shortBacktestData=await rpc('viop_dashboard_short_backtest');
+        if(!shortBacktestData)throw Error('SHORT snapshot bulunamadı');
+        shortBacktestSummary(shortBacktestData);
+        shortBacktestTrades(shortBacktestData.trades);
+        shortBacktestPeriods(shortPeriodMonths);
+        drawShortBacktest(shortBacktestData.equity_daily);
+        $('healthText').textContent='Supabase bağlı · SHORT ayrı';
+      }catch(e){
+        console.error(e);$('healthText').textContent='SHORT veri hatası';
+        $('sbtTradesBody').innerHTML='<tr><td colspan="24">SHORT verisi yüklenemedi. Giriş oturumunuzu kontrol edip tekrar deneyin.</td></tr>';
+      }
+    }
     function showPage(name){
-      const back=name==='backtest';
-      $('forwardPage').classList.toggle('hidden',back);
+      const back=name==='backtest',short=name==='short';
+      $('forwardPage').classList.toggle('hidden',back||short);
       $('backtestPage').classList.toggle('hidden',!back);
-      $('forwardTab').classList.toggle('active',!back);
+      $('shortBacktestPage').classList.toggle('hidden',!short);
+      $('forwardTab').classList.toggle('active',!back&&!short);
       $('backtestTab').classList.toggle('active',back);
-      if(back)loadBacktest();else refresh();
+      $('shortBacktestTab').classList.toggle('active',short);
+      if(back)loadBacktest();else if(short)loadShortBacktest();else refresh();
     }
     function loggedIn(){$('loginScreen').classList.add('hidden');$('dashboard').classList.remove('hidden');refresh()}
     function loggedOut(){$('dashboard').classList.add('hidden');$('loginScreen').classList.remove('hidden')}
@@ -348,7 +512,10 @@
     }));
     $('forwardTab').onclick=()=>showPage('forward');
     $('backtestTab').onclick=()=>showPage('backtest');
-    window.addEventListener('resize',()=>{if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
+    $('shortBacktestTab').onclick=()=>showPage('short');
+    $('sbtRefreshBtn').onclick=()=>loadShortBacktest(true);
+    document.querySelectorAll('.shortPeriodBtn').forEach(b=>b.onclick=()=>shortBacktestPeriods(Number(b.dataset.shortMonths)));
+    window.addEventListener('resize',()=>{if(!$('shortBacktestPage').classList.contains('hidden')){if(shortBacktestData)drawShortBacktest(shortBacktestData.equity_daily)}else if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
     (async()=>{const {data}=await sb.auth.getSession();data.session?loggedIn():loggedOut()})();
   </script>
 </body>
