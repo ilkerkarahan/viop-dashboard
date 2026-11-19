@@ -39,8 +39,8 @@
     <nav class="tabs">
       <button id="forwardTab" class="tabBtn active">LONG Forward · V33</button>
       <button id="shortForwardTab" class="tabBtn shortTab">SHORT Forward · CCI</button>
-      <button id="backtestTab" class="tabBtn">5 Yıllık Backtest</button>
-      <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI</button>
+      <button id="backtestTab" class="tabBtn">LONG Backtest · 2×</button>
+      <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI · 2×</button>
     </nav>
 
     <div id="forwardPage">
@@ -93,6 +93,7 @@
     </div>
 
     <div id="backtestPage" class="hidden">
+      <p class="shortHint"><span class="shortBadge">LONG · STOP REZERVİ 2×</span> &nbsp; 200.000 TL başlangıç · Donchian(35) + 4×ATR izleyen stop · tarihsel teminat ve 2× stop riskiyle lotlar yeniden hesaplandı · TPP net nema dahil. 5× sonuçlar ayrı kayıt olarak korunur. Canlı/forward motorları değiştirilmedi.</p>
       <section class="btGrid">
         <div class="card btMetric"><span>Gerçek veri kapsamı</span><strong id="btCoverage">-</strong><small id="btRequested">-</small></div>
         <div class="card btMetric"><span>Yüklenen kontrat</span><strong id="btContracts">-</strong><small id="btCandles">-</small></div>
@@ -129,7 +130,7 @@
               <tbody id="btPeriodsBody"><tr><td colspan="6">Dönem verisi yükleniyor...</td></tr></tbody>
             </table>
           </div>
-          <p class="btMeta">Dönemler backtest başlangıç günü baz alınarak 1, 3, 6 veya 12 aylık eşit aralıklara bölünür. Kasa değeri V33 sermaye + nema modelidir.</p>
+          <p class="btMeta">Dönemler backtest başlangıç günü baz alınarak 1, 3, 6 veya 12 aylık eşit aralıklara bölünür. Kasa değeri 2× sermaye rezervi + TPP nema modelidir.</p>
         </div>
       </details>
 
@@ -138,13 +139,13 @@
           <div class="head">
             <div>
               <h2>5 Yıllık Backtest İşlemleri</h2>
-              <p class="muted">Forward testten tamamen ayrı · LONG-only · Donchian 35 kırılımı · ATR(14)×4 trailing çıkış · tarihsel teminat + stop×5 + serbest nakit TPP O/N neması</p>
+              <p class="muted">Forward testten tamamen ayrı · LONG-only · Donchian 35 kırılımı · ATR(14)×4 trailing çıkış · tarihsel teminat + stop×2 + serbest nakit TPP O/N neması</p>
             </div>
             <button id="btRefreshBtn">Yenile</button>
           </div>
           <div class="scroll">
             <table>
-              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Doğal stop riski</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>İndikatör stop riski</th><th>×5 stop rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Serbest nakit</th><th>Giriş öncesi nema</th><th>Pozisyon neması</th><th>Kümülatif nema</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
+              <thead><tr><th>Sinyal</th><th>Kontrat</th><th>Durum</th><th>Yön</th><th>Donchian</th><th>ATR</th><th>Doğal stop riski</th><th>Kontrat adedi</th><th>Toplam teminat</th><th>İndikatör stop riski</th><th>×2 stop rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Serbest nakit</th><th>Giriş öncesi nema</th><th>Pozisyon neması</th><th>Kümülatif nema</th><th>Nominal pozisyon</th><th>Giriş zamanı</th><th>Giriş</th><th>Alış anı 1 lot teminatı</th><th>Çıkış zamanı</th><th>Çıkış</th><th>Kapanış nedeni</th><th>Net K/Z</th><th>Bakiye</th></tr></thead>
               <tbody id="btTradesBody"></tbody>
             </table>
           </div>
@@ -158,7 +159,7 @@
           <div class="status">
             <div><span>Aktif göstergeler</span><b>DONCHIAN + ATR</b></div>
             <div><span>İşlem yönü</span><b>LONG ONLY</b></div>
-            <div><span>Pozisyon yönetimi</span><b>TEMİNAT + STOP×5 + TPP NEMA</b></div><div><span>Nema</span><b>SERBEST NAKİT / TPP O/N</b></div>
+            <div><span>Pozisyon yönetimi</span><b>TEMİNAT + STOP×2 + TPP NEMA</b></div><div><span>Nema</span><b>SERBEST NAKİT / TPP O/N</b></div>
             <div><span>Canlı sisteme yazma</span><b class="off">YOK</b></div>
             <div><span>Forward test</span><b>AYRI</b></div>
             <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
@@ -169,7 +170,7 @@
     </div>
 
     <div id="shortBacktestPage" class="hidden">
-      <p class="shortHint"><span class="shortBadge">BAĞIMSIZ SHORT SİMÜLASYONU</span> &nbsp; Ayrı 200.000 TL başlangıç kasası · CCI(20) + EMA20/100 · ilk ve izleyen stop 4×ATR(14) · en fazla 72 saatlik mum · tarihsel teminat + stop riski ×5 · komisyon/BSMV + TPP net nema. Mevcut LONG backtest ve çalışan forward sistem bu koşudan etkilenmez.</p>
+      <p class="shortHint"><span class="shortBadge">BAĞIMSIZ SHORT · 2× SİMÜLASYON</span> &nbsp; Ayrı 200.000 TL başlangıç kasası · CCI(20) + EMA20/100 · ilk ve izleyen stop 4×ATR(14) · en fazla 72 saatlik mum · tarihsel teminat + stop riski ×2 · komisyon/BSMV + TPP net nema. Mevcut LONG backtest ve çalışan forward sistem bu koşudan etkilenmez.</p>
       <section class="btGrid shortGrid">
         <div class="card btMetric"><span>Veri dönemi</span><strong id="sbtCoverage">-</strong><small id="sbtCandles">-</small></div>
         <div class="card btMetric"><span>Başlangıç sermayesi</span><strong id="sbtInitial">-</strong><small>LONG kasasından tamamen ayrı</small></div>
@@ -179,8 +180,8 @@
         <div class="card btMetric"><span>Net TPP neması</span><strong id="sbtNema">-</strong><small>İşlem açık/kapalı dönemler</small></div>
         <div class="card btMetric"><span>Toplam işlem maliyeti</span><strong id="sbtFees">-</strong><small>Komisyon ve komisyon BSMV toplamı; net K/Z içinde</small></div>
         <div class="card btMetric"><span>Profit factor / Başarı</span><strong id="sbtPf">-</strong><small id="sbtWinRate">-</small></div>
-        <div class="card btMetric"><span>Maksimum düşüş</span><strong id="sbtDd">-</strong><small>Günlük kasa eğrisi</small></div>
-        <div class="card btMetric"><span>Ortalama kontrat</span><strong id="sbtQty">-</strong><small>Tarihsel teminat ve stop×5 limiti</small></div>
+        <div class="card btMetric"><span>Maksimum düşüş</span><strong id="sbtDd">-</strong><small>Günlük kasa eğrisinden yaklaşık DD</small></div>
+        <div class="card btMetric"><span>Ortalama kontrat</span><strong id="sbtQty">-</strong><small>Tarihsel teminat ve stop×2 limiti</small></div>
         <div class="card btMetric"><span>2025–2026 ayrı başlangıç testi</span><strong id="sbtHoldout">-</strong><small id="sbtHoldoutMeta">-</small></div>
         <div class="card btMetric"><span>Sinyal / çıkış</span><strong style="font-size:18px">CCI + EMA / ATR×4</strong><small>CCI +100 altı kesişim · EMA20 &lt; EMA100 · stop / kontrat devri / 72 mum</small></div>
       </section>
@@ -200,14 +201,14 @@
             <div class="card"><span>En kötü dönem</span><strong id="sbtPeriodWorst">-</strong><small id="sbtPeriodWorstMeta">-</small></div>
           </div>
           <div class="scroll"><table class="shortPeriodTable"><thead><tr><th>Dönem</th><th>Başlangıç kasa</th><th>Bitiş kasa</th><th>Kâr / Zarar</th><th>Getiri</th><th>Kapanan SHORT</th></tr></thead><tbody id="sbtPeriodsBody"><tr><td colspan="6">SHORT verisi yükleniyor...</td></tr></tbody></table></div>
-          <p class="shortMeta">Dönemler 19.11.2021 başlangıcından itibaren belirlenen ay adedine bölünür. Günlük kasa değeri kapanmış işlemler ile TPP net nemayı içerir; açık pozisyonun henüz gerçekleşmemiş fiyat farkı ayrıca işaretlenmez.</p>
+          <p class="shortMeta">Dönemler 19.11.2021 başlangıcından itibaren belirlenen ay adedine bölünür. Günlük kasa eğrisi 2× lotlara göre yeniden türetilmiştir; açık pozisyonların gün sonu fiyat farkı önceki kayıtlardan ölçeklendiği için yaklaşık değerlerdir.</p>
         </div>
       </details>
 
       <section class="grid">
         <div class="panel wide">
-          <div class="head"><div><h2>CCI Tabanlı SHORT İşlem Dökümü</h2><p class="muted">132 işlemin giriş/çıkış zamanları, kontrat adedi, 4×ATR başlangıç stopu, tarihsel teminatı, stop×5 rezervi, komisyonu, net sonucu ve kalan kasası.</p></div><button id="sbtRefreshBtn">Yenile</button></div>
-          <div class="scroll"><table class="shortTable"><thead><tr><th>Giriş zamanı</th><th>Kontrat</th><th>Yön</th><th>Adet</th><th>Giriş fiyatı</th><th>ATR(14)</th><th>İlk stop (4×ATR)</th><th>1 lot teminat</th><th>Toplam teminat</th><th>Stop riski</th><th>Stop×5 rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Serbest nakit</th><th>Çıkış zamanı</th><th>Çıkış fiyatı</th><th>Çıkış nedeni</th><th>Brüt K/Z</th><th>Komisyon + BSMV</th><th>Net K/Z</th><th>İşlem öncesi nema</th><th>Pozisyon neması</th><th>Kümülatif nema</th><th>Kapanış kasası</th></tr></thead><tbody id="sbtTradesBody"><tr><td colspan="24">SHORT işlem verisi yükleniyor...</td></tr></tbody></table></div>
+          <div class="head"><div><h2>CCI Tabanlı SHORT İşlem Dökümü</h2><p class="muted">132 işlemin giriş/çıkış zamanları, kontrat adedi, 4×ATR başlangıç stopu, tarihsel teminatı, stop×2 rezervi, komisyonu, net sonucu ve kalan kasası.</p></div><button id="sbtRefreshBtn">Yenile</button></div>
+          <div class="scroll"><table class="shortTable"><thead><tr><th>Giriş zamanı</th><th>Kontrat</th><th>Yön</th><th>Adet</th><th>Giriş fiyatı</th><th>ATR(14)</th><th>İlk stop (4×ATR)</th><th>1 lot teminat</th><th>Toplam teminat</th><th>Stop riski</th><th>Stop×2 rezervi</th><th>Komisyon rezervi</th><th>Toplam sermaye ihtiyacı</th><th>Serbest nakit</th><th>Çıkış zamanı</th><th>Çıkış fiyatı</th><th>Çıkış nedeni</th><th>Brüt K/Z</th><th>Komisyon + BSMV</th><th>Net K/Z</th><th>İşlem öncesi nema</th><th>Pozisyon neması</th><th>Kümülatif nema</th><th>Kapanış kasası</th></tr></thead><tbody id="sbtTradesBody"><tr><td colspan="24">SHORT işlem verisi yükleniyor...</td></tr></tbody></table></div>
         </div>
         <div class="panel"><h2>SHORT Kasa Eğrisi</h2><canvas id="sbtEquityCanvas"></canvas><p class="shortMeta" id="sbtCurveNote">Ayrı 200.000 TL ile başlayan günlük net kasa.</p></div>
         <div class="panel"><h2>SHORT Backtest Bilgisi</h2>
@@ -216,7 +217,7 @@
             <div><span>Giriş</span><b>CCI20 + EMA20/100</b></div>
             <div><span>İlk / izleyen stop</span><b>4×ATR(14)</b></div>
             <div><span>Süre sınırı</span><b>72 saatlik mum</b></div>
-            <div><span>Pozisyon motoru</span><b>TEMİNAT + STOP×5 + KOMİSYON</b></div>
+            <div><span>Pozisyon motoru</span><b>TEMİNAT + STOP×2 + KOMİSYON</b></div>
             <div><span>Nema</span><b>TPP O/N · NET</b></div>
             <div><span>Mevcut LONG / forward</span><b class="pos">DEĞİŞMEDİ</b></div>
             <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
@@ -314,7 +315,7 @@
       $('btStrategyDetail').textContent=(d.strategy_side??'-')+' · '+(d.strategy_version??'-');
       $('btSizing').textContent='Stop ×'+num(d.stop_buffer_multiplier??5,0)+' · dinamik kontrat';
       $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Tarihsel XU030 teminatı':'Teminat modeli: '+(d.margin_model??'-'))+' + ATR×4 stop zararı × '+num(d.stop_buffer_multiplier??5,0)+' + tahmini giriş/stop çıkış komisyonu ≤ kasa · Teminat dışı serbest nakit günlük TPP O/N ile nemalanır · Lot: '+(d.min_quantity??'-')+'–'+(d.max_quantity??'-')+' · Ort: '+num(d.avg_quantity,1);
-      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: resmi V33 TPP nema motorunun en son tamamlanan backtesti.';
+      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: V34; geçmişteki 132 sinyalin 2× rezervle yeniden boyutlandırılmış ve TPP nemalı backtesti. Eski 5× kayıt saklandı.';
     }
 
     async function backtestTrades(){
@@ -443,10 +444,11 @@
       $('sbtWinRate').textContent='Kazanma oranı %'+num(100*o.wins/o.count,2);
       $('sbtDd').textContent='%'+num(o.max_drawdown_pct,2);
       $('sbtQty').textContent=num(o.avg_qty,2);
-      $('sbtHoldout').textContent=tl(h.final_tl);
-      $('sbtHoldoutMeta').textContent='2025–2026, yeniden 200.000 TL · '+h.count+' SHORT · DD %'+num(h.max_drawdown_pct,2);
-      $('sbtNotes').textContent='Sinyal: '+s.entry+'. Stop: ilk ve izleyen '+s.initial_stop_atr+'×ATR, en fazla '+s.max_hold_bars+' saatlik mum. Giriş ve çıkışta ayrı ayrı '+s.slippage_points_per_side+' puan kayma; komisyon/BSMV ve TPP net nema dahildir. Son tarihsel veri: '+dateOnly(d.data_end.slice(0,10))+'. Bu sonuç geçmiş veri simülasyonudur; gerçek emir verilmez.';
-      $('sbtCurveNote').textContent='Bağımsız '+tl(d.data.initial_capital_tl)+' başlangıç; günlük kasa, net işlem sonucu ve TPP nemasını içerir.';
+      const holdoutReady=!!h&&h.final_tl!=null;
+      $('sbtHoldout').textContent=holdoutReady?tl(h.final_tl):'Henüz yok';
+      $('sbtHoldoutMeta').textContent=holdoutReady?('2025–2026, yeniden 200.000 TL · '+h.count+' SHORT · DD %'+num(h.max_drawdown_pct,2)):'2× için ayrı 2025–2026 testi henüz yapılmadı; eski 5× sonuç korundu.';
+      $('sbtNotes').textContent='Sinyal: '+s.entry+'. Stop: ilk ve izleyen '+s.initial_stop_atr+'×ATR, en fazla '+s.max_hold_bars+' saatlik mum. Giriş ve çıkışta ayrı ayrı '+s.slippage_points_per_side+' puan kayma; komisyon/BSMV ve TPP net nema dahildir. Son tarihsel veri: '+dateOnly(d.data_end.slice(0,10))+'. Bu 2× koşusunda geçmiş sinyallerde kontrat sayısı, masraf ve TPP nema yeniden hesaplandı. Günlük açık pozisyon kasa işaretlemeleri yaklaşık yeniden ölçeklemedir; saat içi teminat riski ayrıca doğrulanmadı. Gerçek emir verilmez.';
+      $('sbtCurveNote').textContent='Bağımsız '+tl(d.data.initial_capital_tl)+' başlangıç; günlük 2× kasa ve TPP nema. Açık pozisyon işaretlemeleri tarihsel verilerden yaklaşık ölçeklenmiştir.';
     }
     function shortBacktestTrades(rows){
       $('sbtTradesBody').innerHTML=(rows||[]).length?rows.map(r=>{
