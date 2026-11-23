@@ -13,6 +13,7 @@
     .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.card{padding:18px}.card span,.card small{display:block;color:var(--muted)}.card strong{display:block;font-size:30px;margin:8px 0}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.panel{padding:18px}.wide{grid-column:1/-1}.head{display:flex;justify-content:space-between;align-items:center}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}th{color:var(--muted);background:#0e141b}.pos{color:var(--green);font-weight:800}.neg,.off{color:var(--red);font-weight:800}.warn{color:var(--amber);font-weight:800}canvas{width:100%;height:320px;background:#0d1319;border:1px solid var(--line);border-radius:12px}.status div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}footer{color:var(--muted);text-align:center;font-size:12px;padding:20px}.tabs{display:flex;gap:10px;margin:0 0 16px}.tabBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.tabBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.btMeta{color:var(--muted);font-size:13px;line-height:1.6}.btMetric strong{font-size:25px}.btGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.periodPanel{display:block;width:100%;max-width:none;margin-bottom:14px;padding:0;overflow:hidden}.periodPanel summary{display:flex;width:100%;justify-content:space-between;gap:16px;align-items:center;padding:18px;cursor:pointer;list-style:none}.periodPanel summary::-webkit-details-marker{display:none}.periodPanel summary strong{font-size:18px}.periodPanel summary small{display:block;color:var(--muted);margin-top:4px}.periodPanel[open] summary{border-bottom:1px solid var(--line)}.periodBody{width:100%;padding:18px}.periodControls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.periodBtn{background:#1a2330;color:var(--muted);border:1px solid var(--line)}.periodBtn.active{background:var(--blue);color:#08101a;border-color:var(--blue)}.periodCards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.periodCards .card strong{font-size:23px}.periodTable{width:100%;min-width:1100px}
     @media(max-width:900px){.cards,.btGrid,.periodCards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}@media(max-width:560px){.cards,.btGrid{grid-template-columns:1fr}.wrap{padding:16px}.tabs{width:100%}.tabBtn{flex:1}.periodPanel{width:calc(100vw - 32px);max-width:calc(100vw - 32px);min-width:calc(100vw - 32px);margin-left:0;margin-right:0}.periodPanel summary{align-items:flex-start}.periodPanel[open]{width:1100px;max-width:none;min-width:1100px}.periodPanel[open] .periodBody{min-width:1100px}.periodPanel[open] .periodCards{grid-template-columns:repeat(3,minmax(280px,1fr))}.periodPanel[open] .periodControls{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr))}.periodPanel[open] .periodTable{min-width:1060px}.periodBtn{width:100%}}
     .tabs{flex-wrap:wrap}.shortTab.active,.shortPeriodBtn.active{background:var(--amber);border-color:var(--amber);color:#14110b}.shortBadge{display:inline-block;background:#332a15;border:1px solid #6c5424;color:var(--amber);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:800}.shortHint{border-left:3px solid var(--amber);padding:10px 14px;background:#171b1b;border-radius:8px;margin:0 0 15px;color:#d0d7dd;line-height:1.65}.shortGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.shortGrid .card strong{font-size:clamp(19px,2vw,27px);overflow-wrap:anywhere}.shortPeriodBody{padding:18px}.shortPeriodBody .periodCards{margin-top:10px}.shortTable{min-width:1900px}.shortPeriodTable{min-width:950px}.shortMeta{font-size:12px;line-height:1.7;color:var(--muted)}@media(max-width:900px){.shortGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.shortGrid{grid-template-columns:1fr}.tabs .tabBtn{min-width:130px;font-size:12px;padding:10px 8px}.shortPeriodBody{width:100%;overflow:auto}.shortPeriodBody .periodCards{grid-template-columns:1fr}.shortPeriodBody .periodControls{display:flex}.shortPeriodBody .periodBtn{width:auto}.shortPeriodBody .scroll{max-width:100%}.shortPeriodPanel[open]{width:100%;max-width:100%;min-width:0}.shortPeriodPanel[open] .periodBody{min-width:0}}
+    .matriksHint{border-left:3px solid var(--blue);background:#121e2c;padding:13px 16px;border-radius:8px;line-height:1.7;color:#dbe8f8;margin:0 0 16px}.mtTable{min-width:1850px}.mtGrid .card strong{font-size:clamp(20px,2vw,28px);overflow-wrap:anywhere}.mtMeta{font-size:12px;line-height:1.7;color:var(--muted)}@media(max-width:900px){.mtGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.mtGrid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -41,6 +42,7 @@
       <button id="shortForwardTab" class="tabBtn shortTab">SHORT Forward · CCI · 3×</button>
       <button id="backtestTab" class="tabBtn">LONG Backtest · 3×</button>
       <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI · 3×</button>
+      <button id="matriksBacktestTab" class="tabBtn">longMatriks · 3×</button>
     </nav>
 
     <div id="forwardPage">
@@ -246,6 +248,43 @@
             <div><span>Veri türü</span><b>DONDURULMUŞ TARİHSEL</b></div>
           </div>
           <p class="shortMeta" id="sbtNotes">Sonuçlar geçmiş veri simülasyonudur; ileriye dönük kâr garantisi oluşturmaz.</p>
+        </div>
+      </section>
+    </div>
+
+    <div id="matriksBacktestPage" class="hidden">
+      <p class="matriksHint"><b>LONG MatriksIQ · Ayrı tarihsel backtest.</b> MatriksIQ X30YVADE sürekli yakın-vade serisinin saatlik mumları kullanıldı. Donchian 35 / ATR(14)×4 / giriş ve çıkışta 1 puan kayma / teminat + stop×3 rezervi / net TPP nema ile 200.000 TL ayrı sanal başlangıç. <b>Önemli:</b> Sürekli seri vade değişimlerini tekil kontrat bazında göstermediğinden orijinal LONG backtest ile birebir karşılaştırılamaz. Açık pozisyonların gerçekleşmemiş K/Z'si günlük kasa çiziminde yoktur; gerçek emir gönderilmez.</p>
+      <section class="btGrid mtGrid">
+        <div class="card btMetric"><span>Veri aralığı</span><strong id="mtCoverage">-</strong><small id="mtCandles">-</small></div>
+        <div class="card btMetric"><span>Başlangıç kasası</span><strong id="mtInitial">-</strong><small>LONG ve SHORT kasalarından bağımsız</small></div>
+        <div class="card btMetric"><span>LONG işlemleri</span><strong id="mtTrades">-</strong><small id="mtWinCount">-</small></div>
+        <div class="card btMetric"><span>Final kasa</span><strong id="mtFinal">-</strong><small id="mtReturn">-</small></div>
+        <div class="card btMetric"><span>Net işlem K/Z</span><strong id="mtPnl">-</strong><small>Komisyon ve BSMV düşülmüş</small></div>
+        <div class="card btMetric"><span>Toplam net TPP neması</span><strong id="mtNema">-</strong><small id="mtNemaSplit">-</small></div>
+        <div class="card btMetric"><span>Kazanma oranı / Profit factor</span><strong id="mtWinRate">-</strong><small id="mtPf">-</small></div>
+        <div class="card btMetric"><span>Maksimum günlük kasa düşüşü</span><strong id="mtDrawdown">-</strong><small>Açık pozisyon piyasa K/Z'si hariç</small></div>
+      </section>
+      <section class="grid">
+        <div class="panel wide">
+          <div class="head"><div><h2>longMatriks · İşlem dökümü</h2><p class="mtMeta">Sinyal, bir sonraki saat açılışında giriş, ATR trailing stop, tarihsel teminat ve lot boyutlandırma.</p></div><button id="mtRefreshBtn">Yenile</button></div>
+          <div class="scroll"><table class="mtTable"><thead><tr><th>Sinyal zamanı</th><th>Giriş zamanı</th><th>Kontrat serisi</th><th>Adet</th><th>Giriş fiyatı</th><th>ATR14</th><th>İlk stop</th><th>1 lot teminat</th><th>1 lot stop×3 rezervi</th><th>1 lot sermaye ihtiyacı</th><th>Giriş öncesi kasa</th><th>Çıkış zamanı</th><th>Çıkış fiyatı</th><th>Çıkış sebebi</th><th>Brüt K/Z</th><th>Komisyon + BSMV</th><th>Net işlem K/Z</th><th>Pozisyon neması</th><th>Çıkış kasası</th></tr></thead><tbody id="mtTradesBody"><tr><td colspan="19">Matriks verileri yükleniyor...</td></tr></tbody></table></div>
+        </div>
+        <div class="panel"><h2>longMatriks · Günlük kasa eğrisi</h2><canvas id="mtEquityCanvas"></canvas><p class="mtMeta">İşlem K/Z ve nema dahil; açık işlemlerin gerçekleşmemiş günlük piyasa değeri dahil değildir.</p></div>
+        <div class="panel"><h2>Veri ve simülasyon notları</h2><div class="status">
+          <div><span>Veri kaynağı</span><b>MatriksIQ · X30YVADE</b></div>
+          <div><span>Grafik periyodu</span><b>60 dakika</b></div>
+          <div><span>Sinyal</span><b>Donchian 35</b></div>
+          <div><span>Stop</span><b>ATR14 × 4</b></div>
+          <div><span>Stop rezervi</span><b>3×</b></div>
+          <div><span>Kayma</span><b>Giriş +1 / Çıkış −1 puan</b></div>
+          <div><span>İlk ve son eksik mum</span><b>Son canlı mum hariç</b></div>
+          <div><span>Vade devri modeli</span><b class="warn">TEKİL KONTRAT YOK</b></div>
+          <div><span>Gerçek emir</span><b class="off">KAPALI</b></div>
+        </div><p class="mtMeta" id="mtNotes">Tarihsel sonuçlar garanti değildir.</p></div>
+        <div class="panel wide">
+          <h2>longMatriks · Günlük kasa / nema</h2>
+          <div class="periodControls"><label for="mtDailyYear">Yıl:</label><select id="mtDailyYear" style="background:#17202b;color:#f4f7fc;border:1px solid #596779;border-radius:7px;padding:7px 10px"><option value="all">Tümü</option></select><span id="mtDailyCount" class="muted">Günlük kayıtlar yükleniyor...</span></div>
+          <div class="scroll" style="max-height:460px;overflow:auto"><table><thead><tr><th>Tarih</th><th>Durum (15:40)</th><th>Kasa</th><th>Günlük fark</th><th>Günlük net nema</th><th>TPP oran kaynağı</th></tr></thead><tbody id="mtDailyBody"><tr><td colspan="6">Günlük kayıtlar yükleniyor...</td></tr></tbody></table></div>
         </div>
       </section>
     </div>
@@ -659,17 +698,82 @@
         $('sfTradesBody').innerHTML='<tr><td colspan="24">SHORT canlı verisi yüklenemedi. Oturumu ve bağlantıyı kontrol edin.</td></tr>';
       }
     }
+    // Bağımsız MatriksIQ tarihsel H1 backtest: mevcut LONG/SHORT okumaları değişmez.
+    let matriksBacktestData=null;
+    function renderMatriksBacktest(d){
+      const o=d.overview, trades=d.trades||[], daily=d.daily||[];
+      $('mtCoverage').textContent=dateOnly(o.data_start.slice(0,10))+' → '+dateOnly(o.data_end.slice(0,10));
+      $('mtCandles').textContent=num(o.candle_count,0)+' tamamlanmış saatlik mum · sürekli yakın-vade serisi';
+      $('mtInitial').textContent=tl(o.initial_capital_tl);
+      $('mtTrades').textContent=num(o.trade_count,0);
+      $('mtWinCount').textContent='Kazanan '+o.positive_count+' · Kaybeden '+o.negative_count;
+      $('mtFinal').textContent=tl(o.final_equity_tl);
+      $('mtReturn').textContent='Toplam getiri '+(Number(o.total_return_pct)>=0?'+':'')+num(o.total_return_pct,2)+'% · CAGR '+num(o.cagr_pct,2)+'%';
+      $('mtPnl').textContent=shortSignedTl(o.net_pnl_tl);
+      $('mtPnl').className=shortClass(o.net_pnl_tl);
+      $('mtNema').textContent=tl(o.total_net_nema_tl);
+      $('mtNemaSplit').textContent='Boşta '+tl(o.idle_nema_tl)+' · Açık pozisyonda '+tl(o.position_nema_tl);
+      $('mtWinRate').textContent='%'+num(o.win_rate_pct,2);
+      $('mtPf').textContent='Profit factor '+num(o.profit_factor,3);
+      $('mtDrawdown').textContent='%'+num(o.max_drawdown_pct,2);
+      $('mtNotes').textContent='Bu koşu tekil vade/kontrat devrini modellemez. MatriksIQ doğrulama kaydıyla 65/65 giriş ve 64/65 stop fiyatı eşleşti (02.09.2026 stop fiyatı farklı). 20–23.11.2026 TPP oranları henüz bulunmadığı için son geçerli günlük oran kullanıldı. 2026-11-23 tarihindeki tamamlanmamış son saatlik mum çıkarıldı. Kaynak: '+o.source+'.';
+      $('mtTradesBody').innerHTML=trades.length?trades.map(t=>{
+        const p=Number(t.net_pnl_tl||0);
+        return '<tr><td>'+tr(t.signal_bar_start)+'</td><td>'+tr(t.entry_time)+'</td><td>'+shortEsc(t.contract_code)+'</td><td>'+num(t.quantity,0)+'</td>'+
+          '<td>'+num(t.entry_price,2)+'</td><td>'+num(t.risk_atr,2)+'</td><td>'+num(Number(t.entry_price)-4*Number(t.risk_atr),2)+'</td>'+
+          '<td>'+tl(t.margin_per_contract_tl)+'</td><td>'+tl(t.buffered_stop_per_contract_tl)+'</td><td>'+tl(t.capital_need_per_contract_tl)+'</td><td>'+tl(t.equity_before)+'</td>'+
+          '<td>'+tr(t.exit_time)+'</td><td>'+num(t.exit_price,2)+'</td><td>'+shortEsc(t.outcome_reason)+'</td>'+
+          '<td class="'+shortClass(t.gross_pnl_tl)+'">'+tl(t.gross_pnl_tl)+'</td><td>'+tl(t.total_fees_tl)+'</td><td class="'+shortClass(p)+'">'+shortSignedTl(p)+'</td>'+
+          '<td>'+tl(t.position_nema_tl)+'</td><td>'+tl(t.equity_after)+'</td></tr>';
+      }).join(''):'<tr><td colspan="19">İşlem bulunamadı.</td></tr>';
+      const years=[...new Set(daily.map(r=>String(r.date).slice(0,4)))].sort().reverse();
+      const selected=$('mtDailyYear').value;
+      $('mtDailyYear').innerHTML='<option value="all">Tümü</option>'+years.map(y=>'<option value="'+y+'">'+y+'</option>').join('');
+      $('mtDailyYear').value=years.includes(selected)||selected==='all'?selected:(years[0]||'all');
+      renderMatriksDaily();
+      drawMatriksEquity(daily);
+    }
+    function renderMatriksDaily(){
+      if(!matriksBacktestData)return;
+      const days=matriksBacktestData.daily||[], year=$('mtDailyYear').value;
+      const filtered=days.map((r,i)=>({...r,delta:Number(r.equity_tl)-(i?Number(days[i-1].equity_tl):Number(matriksBacktestData.overview.initial_capital_tl))})).filter(r=>year==='all'||String(r.date).startsWith(year));
+      $('mtDailyCount').textContent=filtered.length+' / '+days.length+' takvim günü (hafta sonları TPP dahil)';
+      $('mtDailyBody').innerHTML=filtered.length?filtered.reverse().map(r=>'<tr><td>'+dateOnly(r.date)+'</td>'+
+        '<td class="'+(r.open_quantity?'warn':'')+'">'+(r.open_quantity?'AÇIK · '+num(r.open_quantity,0)+' lot':'NAKİT')+'</td>'+
+        '<td>'+tl(r.equity_tl)+'</td><td class="'+shortClass(r.delta)+'">'+shortSignedTl(r.delta)+'</td>'+
+        '<td>'+tl(r.daily_nema_tl)+'</td><td>'+shortEsc(r.rate_source==='LAST_KNOWN_CARRIED'?'Son geçerli TPP oranı':r.rate_source==='INTERPOLATED_GAP'?'İnterpolasyon':'Resmî TPP aralığı')+'</td></tr>').join(''):'<tr><td colspan="6">Bu yıl için veri yok.</td></tr>';
+    }
+    function drawMatriksEquity(rows){
+      const c=$('mtEquityCanvas'),ctx=c.getContext('2d'),w=c.clientWidth||600,h=320,d=window.devicePixelRatio||1;
+      c.width=w*d;c.height=h*d;ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);
+      if(!rows?.length){ctx.fillStyle='#8fa0b3';ctx.fillText('Henüz günlük kasa verisi yok.',16,28);return}
+      const vals=rows.map(r=>Number(r.equity_tl)),lo0=Math.min(...vals),hi0=Math.max(...vals),pad=Math.max(1,(hi0-lo0)*.1),lo=lo0-pad,hi=hi0+pad;
+      const p={l:55,r:15,t:22,b:28},X=i=>p.l+i/Math.max(1,rows.length-1)*(w-p.l-p.r),Y=v=>p.t+(hi-v)/(hi-lo)*(h-p.t-p.b);
+      ctx.strokeStyle='#45d483';ctx.lineWidth=2.4;ctx.beginPath();vals.forEach((v,i)=>i?ctx.lineTo(X(i),Y(v)):ctx.moveTo(X(i),Y(v)));ctx.stroke();
+      ctx.fillStyle='#8fa0b3';ctx.font='12px system-ui';ctx.fillText('Bitiş '+tl(vals[vals.length-1]),12,14);
+    }
+    async function loadMatriksBacktest(){
+      try{
+        $('healthText').textContent='Matriks backtest yükleniyor...';
+        const d=await rpc('viop_dashboard_matriks_backtest');
+        if(!d?.overview)throw new Error('longMatriks backtest kaydı henüz yok');
+        matriksBacktestData=d;renderMatriksBacktest(d);
+        $('healthText').textContent='Supabase bağlı · longMatriks';
+      }catch(e){console.error(e);$('healthText').textContent='Matriks backtest veri hatası';$('mtTradesBody').innerHTML='<tr><td colspan="19">Veriler yüklenemedi. Giriş ve veritabanı bağlantısını kontrol edin.</td></tr>'}
+    }
     function showPage(name){
-      const back=name==='backtest',short=name==='short',shortForward=name==='shortForward';
-      $('forwardPage').classList.toggle('hidden',back||short||shortForward);
+      const back=name==='backtest',short=name==='short',shortForward=name==='shortForward',matriks=name==='matriks';
+      $('forwardPage').classList.toggle('hidden',back||short||shortForward||matriks);
       $('shortForwardPage').classList.toggle('hidden',!shortForward);
       $('backtestPage').classList.toggle('hidden',!back);
       $('shortBacktestPage').classList.toggle('hidden',!short);
-      $('forwardTab').classList.toggle('active',!back&&!short&&!shortForward);
+      $('matriksBacktestPage').classList.toggle('hidden',!matriks);
+      $('forwardTab').classList.toggle('active',!back&&!short&&!shortForward&&!matriks);
       $('shortForwardTab').classList.toggle('active',shortForward);
       $('backtestTab').classList.toggle('active',back);
       $('shortBacktestTab').classList.toggle('active',short);
-      if(back)loadBacktest();else if(short)loadShortBacktest();else if(shortForward)loadShortForward();else refresh();
+      $('matriksBacktestTab').classList.toggle('active',matriks);
+      if(matriks)loadMatriksBacktest();else if(back)loadBacktest();else if(short)loadShortBacktest();else if(shortForward)loadShortForward();else refresh();
     }
     function loggedIn(){$('loginScreen').classList.add('hidden');$('dashboard').classList.remove('hidden');refresh()}
     function loggedOut(){$('dashboard').classList.add('hidden');$('loginScreen').classList.remove('hidden')}
@@ -687,10 +791,13 @@
     $('shortForwardTab').onclick=()=>showPage('shortForward');
     $('backtestTab').onclick=()=>showPage('backtest');
     $('shortBacktestTab').onclick=()=>showPage('short');
+    $('matriksBacktestTab').onclick=()=>showPage('matriks');
+    $('mtRefreshBtn').onclick=loadMatriksBacktest;
+    $('mtDailyYear').addEventListener('change',renderMatriksDaily);
     $('sbtRefreshBtn').onclick=()=>loadShortBacktest(true);
     $('sfRefreshBtn').onclick=loadShortForward;
     document.querySelectorAll('.shortPeriodBtn').forEach(b=>b.onclick=()=>shortBacktestPeriods(Number(b.dataset.shortMonths)));
-    window.addEventListener('resize',()=>{if(!$('shortForwardPage').classList.contains('hidden')){if(shortForwardData)drawShortForward(shortForwardData.equity,shortForwardData.state)}else if(!$('shortBacktestPage').classList.contains('hidden')){if(shortBacktestData)drawShortBacktest(shortBacktestData.equity_daily)}else if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
+    window.addEventListener('resize',()=>{if(!$('matriksBacktestPage').classList.contains('hidden')){if(matriksBacktestData)drawMatriksEquity(matriksBacktestData.daily)}else if(!$('shortForwardPage').classList.contains('hidden')){if(shortForwardData)drawShortForward(shortForwardData.equity,shortForwardData.state)}else if(!$('shortBacktestPage').classList.contains('hidden')){if(shortBacktestData)drawShortBacktest(shortBacktestData.equity_daily)}else if($('backtestPage').classList.contains('hidden'))equity().catch(()=>{});else backtestEquity().catch(()=>{})});
     (async()=>{const {data}=await sb.auth.getSession();data.session?loggedIn():loggedOut()})();
   </script>
 </body>
