@@ -183,7 +183,7 @@
     </div>
 
     <div id="shortBacktestPage" class="hidden">
-      <p class="shortHint"><span class="shortBadge">BAĞIMSIZ SHORT · 3× SİMÜLASYON</span> &nbsp; Ayrı 200.000 TL başlangıç kasası · CCI(20) + EMA20/100 · ilk ve izleyen stop 4×ATR(14) · en fazla 72 saatlik mum · tarihsel teminat + stop riski ×3 · komisyon/BSMV + TPP net nema. Mevcut LONG backtest ve çalışan forward sistem bu koşudan etkilenmez.</p>
+      <p class="shortHint"><span class="shortBadge">BAĞIMSIZ SHORT · 3× SİMÜLASYON</span> &nbsp; Ayrı 200.000 TL başlangıç kasası · EMA20/100, CCI20 ve ATR14 yalnızca yakın-vade başlangıcından sıfırdan hesaplanır · ilk ve izleyen stop 4×ATR14 · en fazla 72 saatlik mum · tarihsel teminat + stop riski ×3 · komisyon/BSMV + TPP net nema. Mevcut LONG backtest ve çalışan forward sistem bu koşudan etkilenmez.</p>
       <section class="btGrid shortGrid">
         <div class="card btMetric"><span>Veri dönemi</span><strong id="sbtCoverage">-</strong><small id="sbtCandles">-</small></div>
         <div class="card btMetric"><span>Başlangıç sermayesi</span><strong id="sbtInitial">-</strong><small>LONG kasasından tamamen ayrı</small></div>
@@ -214,7 +214,7 @@
             <div class="card"><span>En kötü dönem</span><strong id="sbtPeriodWorst">-</strong><small id="sbtPeriodWorstMeta">-</small></div>
           </div>
           <div class="scroll"><table class="shortPeriodTable"><thead><tr><th>Dönem</th><th>Başlangıç kasa</th><th>Bitiş kasa</th><th>Kâr / Zarar</th><th>Getiri</th><th>Kapanan SHORT</th></tr></thead><tbody id="sbtPeriodsBody"><tr><td colspan="6">SHORT verisi yükleniyor...</td></tr></tbody></table></div>
-          <p class="shortMeta">Dönemler 19.11.2021 başlangıcından itibaren belirlenen ay adedine bölünür. Günlük kasa eğrisi 3× lotlara göre yeniden türetilmiştir; açık pozisyonların gün sonu fiyat farkı önceki kayıtlardan ölçeklendiği için yaklaşık değerlerdir.</p>
+          <p class="shortMeta">Dönemler 19.11.2021 başlangıcından itibaren belirlenen ay adedine bölünür. Günlük kasa eğrisi yeni 4×ATR / 3× risk testi işlemlerinden hesaplanmıştır. Açık pozisyon gün sonu değerleri H1 kapanış fiyatıyla tahmini işaretlemelerdir.</p>
         </div>
       </details>
 
@@ -225,7 +225,7 @@
           <div class="scroll" style="max-height:500px;overflow:auto">
             <table class="shortPeriodTable"><thead><tr><th>Tarih</th><th>Durum</th><th>Günlük kasa</th><th>Önceki güne göre</th></tr></thead><tbody id="sbtDailyBody"><tr><td colspan="4">Günlük veriler yükleniyor...</td></tr></tbody></table>
           </div>
-          <p class="shortMeta"><b>Önemli:</b> SHORT için <b>AÇIK · yaklaşık</b> günlerdeki kasa, önceki tarihsel açık pozisyon işaretlemelerinin 3× lotlara göre yeniden ölçeklenmiş tahminidir. Gün içi asgari teminatı veya zorunlu tasfiyeyi doğrulamaz. NAKİT günleri gerçekleşmiş kasa ve TPP nemasını gösterir.</p>
+          <p class="shortMeta"><b>Önemli:</b> SHORT için <b>AÇIK · yaklaşık</b> günlerdeki kasa, günün son saatlik kapanış fiyatına göre yeniden hesaplanmış tahmini pozisyon değeridir. Gün içi asgari teminatı veya zorunlu tasfiyeyi doğrulamaz. NAKİT günleri gerçekleşmiş kasa ve TPP nemasını gösterir.</p>
         </div>
       </details>
 
@@ -552,8 +552,8 @@
       const holdoutReady=!!h&&h.final_tl!=null;
       $('sbtHoldout').textContent=holdoutReady?tl(h.final_tl):'Henüz yok';
       $('sbtHoldoutMeta').textContent=holdoutReady?('2025–2026, yeniden 200.000 TL · '+h.count+' SHORT · DD %'+num(h.max_drawdown_pct,2)):'3× için ayrı 2025–2026 testi henüz yapılmadı; eski 2× ve 5× sonuçlar korundu.';
-      $('sbtNotes').textContent='Sinyal: '+s.entry+'. Stop: ilk ve izleyen '+s.initial_stop_atr+'×ATR, en fazla '+s.max_hold_bars+' saatlik mum. Giriş ve çıkışta ayrı ayrı '+s.slippage_points_per_side+' puan kayma; komisyon/BSMV ve TPP net nema dahildir. Son tarihsel veri: '+dateOnly(d.data_end.slice(0,10))+'. Bu 3× koşusunda geçmiş sinyallerde kontrat sayısı, masraf ve TPP nema yeniden hesaplandı. Günlük açık pozisyon kasa işaretlemeleri yaklaşık yeniden ölçeklemedir; saat içi teminat riski ayrıca doğrulanmadı. Gerçek emir verilmez.';
-      $('sbtCurveNote').textContent='Bağımsız '+tl(d.data.initial_capital_tl)+' başlangıç; günlük 3× kasa ve TPP nema. Açık pozisyon işaretlemeleri tarihsel verilerden yaklaşık ölçeklenmiştir.';
+      $('sbtNotes').textContent='Sinyal: '+s.entry+'. Stop: ilk ve izleyen '+s.initial_stop_atr+'×ATR, en fazla '+s.max_hold_bars+' saatlik mum. Giriş ve çıkışta ayrı ayrı '+s.slippage_points_per_side+' puan kayma; komisyon/BSMV ve TPP net nema dahildir. Son tarihsel veri: '+dateOnly(d.data_end.slice(0,10))+'. Bu koşuda EMA20, EMA100, CCI20 ve ATR14 her yakın-vade başında sıfırdan hesaplandı; sinyaller ve bütün işlemler yeniden üretildi. Günlük açık pozisyon değerleri H1 kapanışlarıyla tahmini hesaplanır; saat içi teminat riski ayrıca doğrulanmadı. Gerçek emir verilmez.';
+      $('sbtCurveNote').textContent='Bağımsız '+tl(d.data.initial_capital_tl)+' başlangıç; günlük 3× kasa ve TPP nema. Açık pozisyonlar günlük son H1 kapanış fiyatına göre tahmini işaretlenmiştir.';
     }
     function shortBacktestTrades(rows){
       $('sbtTradesBody').innerHTML=(rows||[]).length?rows.map(r=>{
