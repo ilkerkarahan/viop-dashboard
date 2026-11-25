@@ -95,7 +95,7 @@
     </div>
 
     <div id="backtestPage" class="hidden">
-      <p class="shortHint"><span class="shortBadge">LONG · STOP REZERVİ 3×</span> &nbsp; 200.000 TL başlangıç · Donchian(35) + 4×ATR izleyen stop · tarihsel teminat ve 3× stop riskiyle lotlar yeniden hesaplandı · TPP net nema dahil. Eski 2× ve 5× sonuçlar ayrı kayıt olarak korunur. Canlı/forward motorları değiştirilmedi.</p>
+      <p class="shortHint"><span class="shortBadge">LONG · DOĞRULANMIŞ V36 · 3×</span> &nbsp; 31 kontrat / 54.867 tam vade saatlik mumdan Donchian35 ve ATR14 · kapanmış mumda giriş/stop sinyali, sonraki mum açılışında işlem · 4×ATR izleyen stop · tarihsel teminat + stop risk rezervi 3× · net TPP nema · günlük kasa açık pozisyon piyasa K/Z dahil. Eski V35, 2× ve 5× sonuçlar saklıdır. Canlı/forward etkilenmedi.</p>
       <section class="btGrid">
         <div class="card btMetric"><span>Gerçek veri kapsamı</span><strong id="btCoverage">-</strong><small id="btRequested">-</small></div>
         <div class="card btMetric"><span>Yüklenen kontrat</span><strong id="btContracts">-</strong><small id="btCandles">-</small></div>
@@ -104,7 +104,7 @@
         <div class="card btMetric"><span>Net nema</span><strong id="btNema">-</strong><small id="btNemaBreakdown">-</small></div>
         <div class="card btMetric"><span>TPP oran kapsamı</span><strong id="btRateCoverage">-</strong><small id="btRateSource">-</small></div>
         <div class="card btMetric"><span>Profit factor</span><strong id="btProfitFactor">-</strong><small id="btWinRate">-</small></div>
-        <div class="card btMetric"><span>Maks. drawdown</span><strong id="btDrawdown">-</strong><small>Gerçekleşen net bakiye eğrisi</small></div>
+        <div class="card btMetric"><span>Maks. drawdown</span><strong id="btDrawdown">-</strong><small>Saatlik açık K/Z dahil tahmini piyasa değeri</small></div>
         <div class="card btMetric"><span>Aktif strateji</span><strong id="btStrategy" style="font-size:18px">-</strong><small id="btStrategyDetail">-</small></div>
         <div class="card btMetric"><span>Pozisyon boyutlandırma</span><strong id="btSizing" style="font-size:18px">-</strong><small id="btSizingDetail">-</small></div>
       </section>
@@ -360,7 +360,7 @@
       $('btCoverage').textContent=d.data_start?tr(d.data_start)+' → '+tr(d.data_end):'-';
       $('btRequested').textContent='İstenen: '+tr(d.requested_start)+' → '+tr(d.requested_end);
       $('btContracts').textContent=(d.contracts_loaded??0)+' / '+(d.contracts_requested??0);
-      $('btCandles').textContent='1 saatlik mum: '+(d.candle_count??0);
+      $('btCandles').textContent='Yakın-vade işlem mumu: '+(d.candle_count??0)+' · tam-vade arşivi: '+(d.full_contract_h1_candles??'-');
       $('btTrades').textContent=d.trade_count??0;
       $('btResolved').textContent='Kapalı: '+(d.resolved_count??0)+' · +'+(d.positive_count??0)+' / -'+(d.negative_count??0);
       $('btFinalEquity').textContent=tl(d.final_equity_tl??0);
@@ -376,7 +376,7 @@
       $('btStrategyDetail').textContent=(d.strategy_side??'-')+' · '+(d.strategy_version??'-');
       $('btSizing').textContent='Stop ×'+num(d.stop_buffer_multiplier??5,0)+' · dinamik kontrat';
       $('btSizingDetail').textContent=(d.margin_model==='HISTORICAL_XU030_TAKASBANK'?'Tarihsel XU030 teminatı':'Teminat modeli: '+(d.margin_model??'-'))+' + ATR×4 stop zararı × '+num(d.stop_buffer_multiplier??5,0)+' + tahmini giriş/stop çıkış komisyonu ≤ kasa · Teminat dışı serbest nakit günlük TPP O/N ile nemalanır · Lot: '+(d.min_quantity??'-')+'–'+(d.max_quantity??'-')+' · Ort: '+num(d.avg_quantity,1);
-      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: V35; geçmişteki 132 sinyalin 3× rezervle yeniden boyutlandırılmış ve TPP nemalı backtesti. Eski 2× ve 5× kayıtlar saklandı. Günlük LONG açık işlem değerleri gerçekleşmemiş K/Z içermez.';
+      $('btNotes').textContent=(d.notes??'-')+' · Gösterilen koşu: V36; 31 kontratın tam geçmişinden bağımsız sinyaller, 3× rezerv, kapanış sinyali sonrası sonraki mum açılışında ATR stop çıkışı ve günlük açık pozisyon piyasa K/Z dahil. Eski V35/2×/5× sonuçları saklandı.';
     }
 
     async function backtestTrades(){
@@ -432,7 +432,7 @@
     let activePeriodMonths=1;
     const dateOnly=v=>v?new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(v+'T12:00:00+03:00')):'-';
 
-    // Yalnızca geçmiş backtest: günlük LONG gerçekleşmiş bakiye ve TPP, açık pozisyon mark-to-market HARİÇ.
+    // Bağımsız LONG V36: günlük kapanış değeri açık pozisyon yaklaşık piyasa K/Z ve TPP dahildir.
     let longDailyRows=[];
     function renderLongDaily(){
       const year=$('btDailyYear').value,all=longDailyRows;
@@ -440,10 +440,10 @@
         .filter(r=>year==='all'||String(r.date).startsWith(year));
       $('btDailyCount').textContent=filtered.length+' / '+all.length+' işlem günü';
       $('btDailyBody').innerHTML=filtered.length?filtered.reverse().map(r=>{
-        const open=r.state==='OPEN_NO_MARK',p=r.delta;
+        const open=r.state==='OPEN_MARK',p=r.delta;
         return '<tr>'+
           '<td>'+dateOnly(r.date)+'</td>'+
-          '<td class="'+(open?'warn':'')+'">'+(open?'AÇIK · piyasa K/Z hariç':'NAKİT')+'</td>'+
+          '<td class="'+(open?'warn':'')+'">'+(open?'AÇIK · tahmini piyasa K/Z dahil':'NAKİT')+'</td>'+
           '<td>'+shortEsc(r.contract??'-')+'</td>'+
           '<td>'+(r.qty??'-')+'</td>'+
           '<td><b>'+tl(r.equity_tl)+'</b></td>'+
