@@ -42,7 +42,6 @@
       <button id="shortForwardTab" class="tabBtn shortTab">SHORT Forward · CCI · 3×</button>
       <button id="backtestTab" class="tabBtn">LONG Backtest · 3×</button>
       <button id="shortBacktestTab" class="tabBtn shortTab">SHORT Backtest · CCI · 3×</button>
-      <button id="matriksBacktestTab" class="tabBtn">longMatriks · 3×</button>
     </nav>
 
     <div id="forwardPage">
@@ -772,7 +771,6 @@
       $('shortForwardTab').classList.toggle('active',shortForward);
       $('backtestTab').classList.toggle('active',back);
       $('shortBacktestTab').classList.toggle('active',short);
-      $('matriksBacktestTab').classList.toggle('active',matriks);
       if(matriks)loadMatriksBacktest();else if(back)loadBacktest();else if(short)loadShortBacktest();else if(shortForward)loadShortForward();else refresh();
     }
     function loggedIn(){$('loginScreen').classList.add('hidden');$('dashboard').classList.remove('hidden');refresh()}
@@ -791,7 +789,6 @@
     $('shortForwardTab').onclick=()=>showPage('shortForward');
     $('backtestTab').onclick=()=>showPage('backtest');
     $('shortBacktestTab').onclick=()=>showPage('short');
-    $('matriksBacktestTab').onclick=()=>showPage('matriks');
     $('mtRefreshBtn').onclick=loadMatriksBacktest;
     $('mtDailyYear').addEventListener('change',renderMatriksDaily);
     $('sbtRefreshBtn').onclick=()=>loadShortBacktest(true);
